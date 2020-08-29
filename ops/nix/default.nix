@@ -17,7 +17,7 @@ let
   project = hs.project {
     inherit nixpkgs packages base;
     compiler = "ghc8101";
-    cabal2nixOptions = "--no-hpack";
+    cabal2nixOptions = "";
     overrides = import ./overrides.nix niv;
     ghciArgs = ["-hide-package" "base" "-Wall" "-Werror"];
     options_ghc = "-fplugin=Polysemy.Plugin";
