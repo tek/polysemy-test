@@ -1,0 +1,116 @@
+name: polysemy-test
+synopsis: Polysemy effects for testing
+version: 0.1.0.0
+description: Please see the README on Github at <https://github.com/tek/polysemy-test>
+license: BSD-2-Clause-Patent
+license-file: LICENSE
+author: "Torsten Schmits"
+maintainer: "tek@tryp.io"
+copyright: "2020 Torsten Schmits"
+category: Test
+build-type: Simple
+extra-source-files:
+  - README.md
+  - Changelog.md
+
+library:
+  source-dirs: lib
+  other-modules:
+    - Prelude
+  generated-exposed-modules:
+    - Paths_polysemy_test
+
+tests:
+  polysemy-test-unit:
+    main: Main.hs
+    source-dirs: test
+    ghc-options:
+      - -threaded
+      - -rtsopts
+      - -with-rtsopts=-N
+    dependencies:
+      - name: polysemy-test
+        mixin:
+          - hiding (Polysemy.Test.Prelude)
+          - (Polysemy.Test.Prelude as Prelude)
+      - tasty
+
+dependencies:
+  - base-noprelude
+  - containers
+  - either
+  - hedgehog
+  - path
+  - path-io
+  - polysemy
+  - polysemy-plugin
+  - relude
+  - string-interpolate
+  - tasty
+  - tasty-hedgehog
+  - text
+
+ghc-options:
+  - -Wall
+  - -fplugin=Polysemy.Plugin
+  - -O2
+  - -flate-specialise
+  - -fspecialise-aggressively
+
+default-extensions:
+  - AllowAmbiguousTypes
+  - ApplicativeDo
+  - BangPatterns
+  - BinaryLiterals
+  - BlockArguments
+  - ConstraintKinds
+  - DataKinds
+  - DefaultSignatures
+  - DeriveAnyClass
+  - DeriveDataTypeable
+  - DeriveFoldable
+  - DeriveFunctor
+  - DeriveGeneric
+  - DeriveTraversable
+  - DerivingStrategies
+  - DisambiguateRecordFields
+  - DoAndIfThenElse
+  - DuplicateRecordFields
+  - EmptyDataDecls
+  - ExistentialQuantification
+  - FlexibleContexts
+  - FlexibleInstances
+  - FunctionalDependencies
+  - GADTs
+  - GeneralizedNewtypeDeriving
+  - InstanceSigs
+  - KindSignatures
+  - LambdaCase
+  - LiberalTypeSynonyms
+  - MultiParamTypeClasses
+  - MultiWayIf
+  - NamedFieldPuns
+  - OverloadedStrings
+  - OverloadedLists
+  - PackageImports
+  - PartialTypeSignatures
+  - PatternGuards
+  - PatternSynonyms
+  - PolyKinds
+  - QuantifiedConstraints
+  - QuasiQuotes
+  - RankNTypes
+  - RecordWildCards
+  - RecursiveDo
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - TemplateHaskell
+  - TupleSections
+  - TypeApplications
+  - TypeFamilies
+  - TypeFamilyDependencies
+  - TypeOperators
+  - TypeSynonymInstances
+  - UndecidableInstances
+  - UnicodeSyntax
+  - ViewPatterns
