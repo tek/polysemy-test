@@ -57,7 +57,7 @@ evalEither ::
 evalEither e =
   withFrozenCallStack $ liftH (Native.evalEither e)
 
--- |Given a reference value, unpacks an 'Either' with 'evalEither' and applies 'assertEqual' to the result in the
+-- |Given a reference value, unpacks an 'Either' with 'evalEither' and applies '===' to the result in the
 -- 'Right' case, and produces a test failure in the 'Left' case.
 assertRight ::
   ∀ a e r .

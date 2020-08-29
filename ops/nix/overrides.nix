@@ -5,15 +5,11 @@ niv:
 }:
 self: super:
 let
-  inherit (hackage) pack thunk cabal2nix subPkg github;
-
-  versions = [
-  ];
-  versionOverrides = builtins.listToAttrs versions;
+  inherit (hackage) cabal2nix subPkg;
 
   custom = {
     polysemy = cabal2nix "polysemy" niv.polysemy;
     polysemy-plugin = subPkg "polysemy-plugin" "polysemy-plugin" niv.polysemy;
   };
 in
-  versionOverrides // custom
+  custom

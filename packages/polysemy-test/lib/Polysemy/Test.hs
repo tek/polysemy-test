@@ -42,6 +42,7 @@ import Polysemy.Test.Run (interpretTest, interpretTestInSubdir, runTest, runTest
 type UnitTest = TestT IO ()
 
 -- |Convert a @'TestT' IO ()@ to a 'TestTree' ready for use with Tasty's machinery.
+-- This is for non-property tests.
 unitTest ::
   TestName ->
   UnitTest ->
@@ -69,6 +70,7 @@ tempFileLines =
 
 {- $intro
 @
+import Path (relfile)
 import Polysemy.Test
 import Test.Tasty (defaultMain)
 
