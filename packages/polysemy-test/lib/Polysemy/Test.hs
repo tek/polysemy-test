@@ -20,7 +20,9 @@ module Polysemy.Test (
   assert,
   (===),
   assertRight,
+  assertJust,
   evalEither,
+  evalMaybe,
   interpretHedgehog,
   -- * Utilities
   UnitTest,
@@ -35,7 +37,7 @@ import Test.Tasty.Hedgehog (testProperty)
 
 import Polysemy.Test.Data.Hedgehog (Hedgehog, liftH)
 import Polysemy.Test.Data.Test (Test, fixture, fixturePath, tempDir, tempFile, tempFileContent, testDir)
-import Polysemy.Test.Hedgehog (assert, assertRight, evalEither, interpretHedgehog, (===))
+import Polysemy.Test.Hedgehog (assert, assertJust, assertRight, evalEither, evalMaybe, interpretHedgehog, (===))
 import Polysemy.Test.Run (interpretTest, interpretTestInSubdir, runTest, runTestAuto, runTestInSubdir)
 
 -- |Convenience type alias for tests.
