@@ -27,6 +27,8 @@ assert ::
 assert a =
   withFrozenCallStack $ liftH (Native.assert a)
 
+infix 4 ===
+
 -- |Embeds 'Hedgehog.==='.
 --
 -- >>> 5 === 6
@@ -45,6 +47,26 @@ assert a =
   Sem r ()
 a === b =
   withFrozenCallStack $ liftH (a Native.=== b)
+
+infix 4 /==
+
+-- |Embeds 'Hedgehog./=='.
+--
+-- >>> 5 /== 5
+-- 5 /== 5
+-- ^^^^^^^
+-- │ ━━━ Failed (no differences) ━━━
+-- │ 5
+(/==) ::
+  Eq a =>
+  Show a =>
+  HasCallStack =>
+  Member Hedgehog r =>
+  a ->
+  a ->
+  Sem r ()
+a /== b =
+  withFrozenCallStack $ liftH (a Native./== b)
 
 -- |Embeds 'Hedgehog.evalEither'.
 evalEither ::

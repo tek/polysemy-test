@@ -4,7 +4,7 @@ import qualified Data.Text as Text
 import qualified Data.Text.IO as Text
 import Path (relfile, toFilePath)
 
-import Polysemy.Test (UnitTest, fixtureLines, runTestAuto, runTestInSubdir, tempFileLines, (===))
+import Polysemy.Test (UnitTest, fixtureLines, runTestAuto, runTestInSubdir, tempFileLines, (/==), (===))
 import qualified Polysemy.Test.Data.Test as Test
 
 test_fixture :: UnitTest
@@ -15,6 +15,7 @@ test_fixture =
     fixContent2 <- Text.lines <$> embed (Text.readFile (toFilePath fixPath))
     fixContent1 === fixContent2
     fixContent1 === ["file", "content"]
+    fixContent1 /== ["file", "content", "and more"]
   where
     fixRel =
       [relfile|files/file1|]
