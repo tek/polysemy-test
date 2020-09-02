@@ -7,8 +7,9 @@ import qualified Control.Monad.Trans.Writer.Lazy as MTL
 import qualified Data.Text as Text
 import GHC.Stack.Types (SrcLoc(SrcLoc, srcLocModule, srcLocFile))
 import Hedgehog.Internal.Property (Failure, Journal, TestT(TestT), failWith)
-import Path (Abs, Dir, Path, parseAbsDir, parseRelDir, reldir, (</>))
-import Path.IO (canonicalizePath, getCurrentDir, removeDirRecur)
+import Path (Abs, Dir, Path, parseAbsDir, parseRelDir, (</>))
+import Path.IO (canonicalizePath, createTempDir, getCurrentDir, getTempDir, removeDirRecur)
+import Polysemy.Resource (Resource, bracket, resourceToIOFinal)
 import Polysemy.Writer (runLazyWriter)
 import System.IO.Error (IOError)
 
@@ -32,41 +33,62 @@ ignoringIOErrors ioe =
 interpretTestIn' ::
   Member (Embed IO) r =>
   Path Abs Dir ->
+  Path Abs Dir ->
   InterpreterFor Test r
-interpretTestIn' base =
+interpretTestIn' base tempBase =
   interpret \case
     Test.TestDir ->
       pure base
     Test.TempDir path ->
-      Files.tempDir base path
+      Files.tempDir tempBase path
     Test.TempFile content path ->
-      Files.tempFile base content path
+      Files.tempFile tempBase content path
     Test.TempFileContent path ->
-      Files.tempFileContent base path
+      Files.tempFileContent tempBase path
     Test.FixturePath path ->
       Files.fixturePath base path
     Test.Fixture path ->
       Files.fixture base path
 
--- |Interpret 'Test' so that all file system operations are performed in the directory @base@.
--- The @temp@ directory will be removed before running.
+createTemp ::
+  Member (Embed IO) r =>
+  Sem r (Path Abs Dir)
+createTemp = do
+  systemTmp <- getTempDir
+  createTempDir systemTmp "polysemy-test-"
+
+-- |Interpret 'Test' so that fixtures are read from the directory @base@ and temp operations are performed in
+-- @/tmp/polysemy-test-XXX@.
 --
 -- This library uses 'Path' for all file system related tasks, so in order to construct paths manually, you'll have to
 -- use the quasiquoters 'Path.absdir' and 'reldir' or the functions 'parseAbsDir' and 'parseRelDir'.
-interpretTest ::
+interpretTestKeepTemp ::
   Member (Embed IO) r =>
   Path Abs Dir ->
   InterpreterFor Test r
+interpretTestKeepTemp base sem = do
+  systemTmp <- getTempDir
+  tempBase <- createTempDir systemTmp "polysemy-test-"
+  (interpretTestIn' base tempBase) sem
+
+-- |like 'interpretTestKeepTemp', but deletes the temp dir after the test.
+interpretTest ::
+  Members [Resource, Embed IO] r =>
+  Path Abs Dir ->
+  InterpreterFor Test r
 interpretTest base sem = do
-  let tempDir' = base </> [reldir|temp|]
-  embed (ignoringIOErrors (removeDirRecur tempDir'))
-  (interpretTestIn' base) sem
+  bracket createTemp release use
+  where
+    release tempBase =
+      embed (ignoringIOErrors (removeDirRecur tempBase))
+    use tempBase =
+      (interpretTestIn' base tempBase) sem
 
 -- |Call 'interpretTest' with the subdirectory @prefix@ of the current working directory as the base dir, which is
 -- most likely something like @test@.
 -- This is not necessarily consistent, it depends on which directory your test runner uses as cwd.
 interpretTestInSubdir ::
-  Member (Embed IO) r =>
+  Members [Resource, Embed IO] r =>
   Text ->
   InterpreterFor Test r
 interpretTestInSubdir prefix sem = do
@@ -127,19 +149,21 @@ semToTestTFinal =
 -- execution as a property.
 runTest ::
   Path Abs Dir ->
-  Sem (Test : TestEffects) a ->
+  Sem [Test, Resource, Error TestError, Hedgehog IO, Embed IO, Final IO] a ->
   TestT IO a
 runTest dir =
   semToTestTFinal .
+  resourceToIOFinal .
   interpretTest dir
 
 -- |Same as 'runTest', but uses 'interpretTestInSubdir'.
 runTestInSubdir ::
   Text ->
-  Sem (Test : TestEffects) a ->
+  Sem (Test : Resource : TestEffects) a ->
   TestT IO a
 runTestInSubdir prefix =
   semToTestTFinal .
+  resourceToIOFinal .
   interpretTestInSubdir prefix
 
 callingTestDir ::
@@ -166,7 +190,7 @@ callingTestDir = do
 -- 'GHC.Stack.Types.CallStack'.
 runTestAutoWith ::
   HasCallStack =>
-  Member (Embed IO) r =>
+  Members [Resource, Embed IO] r =>
   (∀ x . Sem r x -> IO x) ->
   Sem (Test : Error TestError : Hedgehog IO : r) a ->
   TestT IO a
@@ -178,7 +202,7 @@ runTestAutoWith run sem =
 -- |Version of 'runTestAutoWith' specialized to @'Final' IO@
 runTestAuto ::
   HasCallStack =>
-  Sem (Test : TestEffects) a ->
+  Sem [Test, Error TestError, Hedgehog IO, Embed IO, Resource, Final IO] a ->
   TestT IO a
 runTestAuto =
-  runTestAutoWith (runFinal . embedToFinal)
+  runTestAutoWith (runFinal . resourceToIOFinal . embedToFinal)

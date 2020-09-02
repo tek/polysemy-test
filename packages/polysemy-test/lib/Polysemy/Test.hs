@@ -10,6 +10,7 @@ module Polysemy.Test (
   module Polysemy.Test.Data.Test,
   tempFileLines,
   fixtureLines,
+  interpretTestKeepTemp,
   interpretTest,
   interpretTestInSubdir,
   -- * Hedgehog effect
@@ -33,6 +34,7 @@ module Polysemy.Test (
   -- * Utilities
   UnitTest,
   unitTest,
+  TestError(TestError),
 ) where
 
 import qualified Data.Text as Text
@@ -43,10 +45,12 @@ import Test.Tasty.Hedgehog (testProperty)
 
 import Polysemy.Test.Data.Hedgehog (Hedgehog, liftH)
 import Polysemy.Test.Data.Test (Test, fixture, fixturePath, tempDir, tempFile, tempFileContent, testDir)
+import Polysemy.Test.Data.TestError (TestError(TestError))
 import Polysemy.Test.Hedgehog (assert, assertJust, assertRight, evalEither, evalMaybe, interpretHedgehog, (/==), (===))
 import Polysemy.Test.Run (
   interpretTest,
   interpretTestInSubdir,
+  interpretTestKeepTemp,
   runTest,
   runTestAuto,
   runTestAutoWith,
