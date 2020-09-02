@@ -7,8 +7,8 @@ import Polysemy.Internal (send)
 import Hedgehog (TestT)
 
 -- |Convenience effect for embedding Hedgehog assertions.
-data Hedgehog :: Effect where
-  LiftH :: TestT IO a -> Hedgehog m a
+data Hedgehog m :: Effect where
+  LiftH :: TestT m a -> Hedgehog m n a
 
 -- |Lift a @'TestT' IO@ into Sem.
 --
@@ -17,9 +17,9 @@ data Hedgehog :: Effect where
 -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 -- │ 0
 liftH ::
-  ∀ a r .
-  Member Hedgehog r =>
-  TestT IO a ->
+  ∀ m a r .
+  Member (Hedgehog m) r =>
+  TestT m a ->
   Sem r a
 liftH =
   send . LiftH

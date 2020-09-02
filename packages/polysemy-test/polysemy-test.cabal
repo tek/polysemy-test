@@ -59,6 +59,7 @@ test-suite polysemy-test-unit
   main-is: Main.hs
   other-modules:
       Polysemy.Test.Test.FilesTest
+      Polysemy.Test.Test.HedgehogTest
       Paths_polysemy_test
   hs-source-dirs:
       test

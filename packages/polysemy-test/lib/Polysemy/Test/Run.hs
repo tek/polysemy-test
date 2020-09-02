@@ -3,21 +3,21 @@
 module Polysemy.Test.Run where
 
 import Control.Exception (catch)
+import qualified Control.Monad.Trans.Writer.Lazy as MTL
 import qualified Data.Text as Text
 import GHC.Stack.Types (SrcLoc(SrcLoc, srcLocModule, srcLocFile))
-import Hedgehog (TestT)
-import Hedgehog.Internal.Property (failWith)
+import Hedgehog.Internal.Property (Failure, Journal, TestT(TestT), failWith)
 import Path (Abs, Dir, Path, parseAbsDir, parseRelDir, reldir, (</>))
 import Path.IO (canonicalizePath, getCurrentDir, removeDirRecur)
-import Polysemy.Embed (runEmbedded)
+import Polysemy.Writer (runLazyWriter)
 import System.IO.Error (IOError)
 
-import Polysemy.Test.Data.Hedgehog (Hedgehog)
+import Polysemy.Test.Data.Hedgehog (Hedgehog, liftH)
 import qualified Polysemy.Test.Data.Test as Test
 import Polysemy.Test.Data.Test (Test)
 import Polysemy.Test.Data.TestError (TestError(TestError))
 import qualified Polysemy.Test.Files as Files
-import Polysemy.Test.Hedgehog (interpretHedgehog)
+import Polysemy.Test.Hedgehog (rewriteHedgehog)
 
 ignoringIOErrors ::
   IO () ->
@@ -77,39 +77,60 @@ interpretTestInSubdir prefix sem = do
 type TestEffects =
   [
     Error TestError,
+    Hedgehog IO,
     Embed IO,
-    Hedgehog,
-    Embed (TestT IO),
-    Final (TestT IO)
+    Final IO
   ]
 
 errorToFailure ::
-  Member (Embed (TestT IO)) r =>
+  Monad m =>
+  Member (Hedgehog m) r =>
   Either TestError a ->
   Sem r a
 errorToFailure = \case
   Right a -> pure a
-  Left (TestError e) -> embed (failWith Nothing (toString e))
+  Left (TestError e) -> liftH (failWith Nothing (toString e))
 
-runTestIO ::
-  Sem TestEffects a ->
-  TestT IO a
-runTestIO =
-  runFinal .
-  embedToFinal @(TestT IO) .
-  interpretHedgehog .
-  runEmbedded lift .
+-- |Run 'Hedgehog' and its dependent effects that correspond to the monad stack of 'TestT', exposing the monadic state.
+unwrapLiftedTestT ::
+  Monad m =>
+  Member (Embed m) r =>
+  Sem (Error TestError : Hedgehog m : r) a ->
+  Sem r (Journal, Either Failure a)
+unwrapLiftedTestT =
+  runLazyWriter .
+  runError .
+  rewriteHedgehog .
+  raiseUnder2 .
   (>>= errorToFailure) .
   runError
 
--- |Convenience combinator that runs both 'Hedgehog' and 'Test' and uses the final monad @'TestT' IO@, ready for
+-- |Run 'Hedgehog' with 'unwrapLiftedTestT' and wrap it back into the 'TestT' stack.
+semToTestT ::
+  Monad m =>
+  Member (Embed m) r =>
+  (∀ x . Sem r x -> m x) ->
+  Sem (Error TestError : Hedgehog m : r) a ->
+  TestT m a
+semToTestT run sem = do
+  (journal, result) <- lift (run (unwrapLiftedTestT sem))
+  TestT (ExceptT (result <$ MTL.tell journal))
+
+semToTestTFinal ::
+  Monad m =>
+  Sem [Error TestError, Hedgehog m, Embed m, Final m] a ->
+  TestT m a
+semToTestTFinal =
+  semToTestT (runFinal . embedToFinal)
+
+-- |Convenience combinator that runs both 'Hedgehog' and 'Test' and rewraps the result in @'TestT' IO@, ready for
 -- execution as a property.
 runTest ::
   Path Abs Dir ->
   Sem (Test : TestEffects) a ->
   TestT IO a
 runTest dir =
-  runTestIO .
+  semToTestTFinal .
   interpretTest dir
 
 -- |Same as 'runTest', but uses 'interpretTestInSubdir'.
@@ -118,7 +139,7 @@ runTestInSubdir ::
   Sem (Test : TestEffects) a ->
   TestT IO a
 runTestInSubdir prefix =
-  runTestIO .
+  semToTestTFinal .
   interpretTestInSubdir prefix
 
 callingTestDir ::
@@ -140,14 +161,24 @@ callingTestDir = do
     parseDir cwd dirPrefix =
       parseAbsDir dirPrefix <|> (cwd </>) <$> parseRelDir dirPrefix
 
--- |Wrapper for 'runTest' that uses the call stack to determine the base dir of the test run.
+-- |Wrapper for 'semToTestT' that uses the call stack to determine the base dir of the test run.
 -- Note that if you wrap this function, you'll have to use the 'HasCallStack' constraint to supply the implicit
 -- 'GHC.Stack.Types.CallStack'.
+runTestAutoWith ::
+  HasCallStack =>
+  Member (Embed IO) r =>
+  (∀ x . Sem r x -> IO x) ->
+  Sem (Test : Error TestError : Hedgehog IO : r) a ->
+  TestT IO a
+runTestAutoWith run sem =
+  semToTestT run do
+    base <- callingTestDir
+    interpretTest base sem
+
+-- |Version of 'runTestAutoWith' specialized to @'Final' IO@
 runTestAuto ::
   HasCallStack =>
   Sem (Test : TestEffects) a ->
   TestT IO a
-runTestAuto sem = do
-  runTestIO do
-    base <- callingTestDir
-    interpretTest base sem
+runTestAuto =
+  runTestAutoWith (runFinal . embedToFinal)

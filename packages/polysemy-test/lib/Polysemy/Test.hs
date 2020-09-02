@@ -12,9 +12,6 @@ module Polysemy.Test (
   fixtureLines,
   interpretTest,
   interpretTestInSubdir,
-  runTestAuto,
-  runTest,
-  runTestInSubdir,
   -- * Hedgehog effect
   module Polysemy.Test.Data.Hedgehog,
   assert,
@@ -25,6 +22,14 @@ module Polysemy.Test (
   evalEither,
   evalMaybe,
   interpretHedgehog,
+  -- * Running 'Hedgehog' and 'Test' as 'TestT'
+  runTestAutoWith,
+  runTestAuto,
+  runTest,
+  runTestInSubdir,
+  unwrapLiftedTestT,
+  semToTestT,
+  semToTestTFinal,
   -- * Utilities
   UnitTest,
   unitTest,
@@ -39,7 +44,17 @@ import Test.Tasty.Hedgehog (testProperty)
 import Polysemy.Test.Data.Hedgehog (Hedgehog, liftH)
 import Polysemy.Test.Data.Test (Test, fixture, fixturePath, tempDir, tempFile, tempFileContent, testDir)
 import Polysemy.Test.Hedgehog (assert, assertJust, assertRight, evalEither, evalMaybe, interpretHedgehog, (/==), (===))
-import Polysemy.Test.Run (interpretTest, interpretTestInSubdir, runTest, runTestAuto, runTestInSubdir)
+import Polysemy.Test.Run (
+  interpretTest,
+  interpretTestInSubdir,
+  runTest,
+  runTestAuto,
+  runTestAutoWith,
+  runTestInSubdir,
+  semToTestT,
+  semToTestTFinal,
+  unwrapLiftedTestT,
+  )
 
 -- |Convenience type alias for tests.
 type UnitTest = TestT IO ()
