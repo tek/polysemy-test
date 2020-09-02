@@ -49,6 +49,7 @@ dependencies:
   - tasty
   - tasty-hedgehog
   - text
+  - transformers
 
 ghc-options:
   - -Wall
