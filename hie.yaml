@@ -1,3 +1,2 @@
 cradle:
-  bios:
-    program: hie-bios.sh
+  cabal:
