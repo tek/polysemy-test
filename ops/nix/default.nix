@@ -17,11 +17,11 @@ let
   project = hs.project {
     inherit nixpkgs packages base;
     compiler = "ghc884";
-    cabal2nixOptions = "";
     overrides = import ./overrides.nix niv;
     ghciArgs = ["-hide-package" "base" "-Wall" "-Werror"];
     options_ghc = "-fplugin=Polysemy.Plugin";
     packageDir = "packages";
+    cabal2nixOptions = "--no-hpack";
   };
 in
   project

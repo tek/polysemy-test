@@ -36,7 +36,9 @@ tests:
       - tasty
 
 dependencies:
-  - base-noprelude
+  - name: base
+    mixin:
+      - hiding (Prelude)
   - containers
   - either
   - hedgehog

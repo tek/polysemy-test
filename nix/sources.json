@@ -12,10 +12,16 @@
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "nixpkgs": {
-        "ref": "bodhi",
-        "repo": "git@gitlab.tryp.io:nix/nixpkgs",
-        "rev": "41f90ca6709e241ce33afaa9332629883c3f290d",
-        "type": "git"
+        "branch": "nixos-20.03",
+        "description": "Nix Packages collection",
+        "homepage": null,
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "21d8e70a69f704a6ab971b2d8265d40cc7bb69b1",
+        "sha256": "0d6ym23bzx8c4ani7lp3k9qmbv7j9bf15vfmiff0f5lbz326bdgi",
+        "type": "tarball",
+        "url": "https://github.com/NixOS/nixpkgs/archive/21d8e70a69f704a6ab971b2d8265d40cc7bb69b1.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "polysemy": {
         "branch": "master",
@@ -23,10 +29,10 @@
         "homepage": "",
         "owner": "polysemy-research",
         "repo": "polysemy",
-        "rev": "de19721ef5d3dc64d50a1571c45d933e7f17305a",
-        "sha256": "18ylw7b3b2v0dsjandkryn2sqf3jif6d0zbclgjvrcixpzqyfi1n",
+        "rev": "62f5af5d03c274f83fb03a0eb9afb93b299e385c",
+        "sha256": "1bhxcn72ncizsixj985sl03ganaqs9q6rzgs5xbznk423bsh5d6n",
         "type": "tarball",
-        "url": "https://github.com/polysemy-research/polysemy/archive/de19721ef5d3dc64d50a1571c45d933e7f17305a.tar.gz",
+        "url": "https://github.com/polysemy-research/polysemy/archive/62f5af5d03c274f83fb03a0eb9afb93b299e385c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tryp-hs": {
@@ -35,10 +41,10 @@
         "homepage": null,
         "owner": "tek",
         "repo": "tryp-hs",
-        "rev": "075647f0f45f54c4aa32f32b48c17b5ea90de6e7",
-        "sha256": "1mhignv8isi6plwf6y0sd4gpcazpprxn0y20d977g37q3rj5a6zj",
+        "rev": "1e457ff5ae6594ac575ceb2d07256e40d964709a",
+        "sha256": "1ag84c73n6cdyd9pjcf7hijk7r2gxqr50yngg28ph2lcicr4pk27",
         "type": "tarball",
-        "url": "https://github.com/tek/tryp-hs/archive/075647f0f45f54c4aa32f32b48c17b5ea90de6e7.tar.gz",
+        "url": "https://github.com/tek/tryp-hs/archive/1e457ff5ae6594ac575ceb2d07256e40d964709a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
