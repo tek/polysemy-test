@@ -18,8 +18,13 @@ let
     inherit nixpkgs packages base;
     compiler = "ghc884";
     overrides = import ./overrides.nix niv;
-    ghciArgs = ["-hide-package" "base" "-Wall" "-Werror"];
-    options_ghc = "-fplugin=Polysemy.Plugin";
+    ghci = {
+      basicArgs = ["-hide-package" "base" "-Wall" "-Werror"];
+      options_ghc = "-fplugin=Polysemy.Plugin";
+    };
+    ghcid = {
+      prelude = base + /packages/polysemy-test/lib/Prelude;
+    };
     packageDir = "packages";
     cabal2nixOptions = "--no-hpack";
   };
