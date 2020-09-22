@@ -1,2 +1,7 @@
 cradle:
   cabal:
+    - path: "./packages/polysemy-test/lib"
+      component: "lib:polysemy-test"
+
+    - path: "./packages/polysemy-test/test"
+      component: "polysemy-test:test:polysemy-test-unit"

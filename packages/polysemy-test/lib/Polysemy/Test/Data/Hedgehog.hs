@@ -10,7 +10,7 @@ import Hedgehog (TestT)
 data Hedgehog m :: Effect where
   LiftH :: TestT m a -> Hedgehog m n a
 
--- |Lift a @'TestT' IO@ into Sem.
+-- |Lift a @'TestT' m@ into Sem.
 --
 -- >>> liftH (Hedgehog.evalEither (Left 0))
 -- liftH (Hedgehog.evalEither (Left 0))

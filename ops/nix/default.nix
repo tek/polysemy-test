@@ -19,7 +19,7 @@ let
     compiler = "ghc884";
     overrides = import ./overrides.nix niv;
     ghci = {
-      basicArgs = ["-hide-package" "base" "-Wall" "-Werror"];
+      basicArgs = ["-Wall" "-Werror"];
       options_ghc = "-fplugin=Polysemy.Plugin";
     };
     ghcid = {
