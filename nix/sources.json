@@ -17,10 +17,10 @@
         "homepage": null,
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "13a15f262a2b348d6aa976017f2cd88e3a18405d",
-        "sha256": "1xcfwqhvs8ai45dahlmqvvkhjf0gdk7nlnxrf7wvmzc50l90akgn",
+        "rev": "773ef5ae78339db744b917c2b35d28812028bd8c",
+        "sha256": "0j07y007g2yk2mmp56xhdbwhjlnpdmp1lvsmx5nzfakcp8n3q7ci",
         "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs/archive/13a15f262a2b348d6aa976017f2cd88e3a18405d.tar.gz",
+        "url": "https://github.com/NixOS/nixpkgs/archive/773ef5ae78339db744b917c2b35d28812028bd8c.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "polysemy": {
@@ -41,10 +41,10 @@
         "homepage": null,
         "owner": "tek",
         "repo": "tryp-hs",
-        "rev": "5bcc76c48a98e2f63a06381333ac6bce6bf5900e",
-        "sha256": "03v8kkn6myw5rwg9zh8z1l982kkdd0jzmja534pz4fx9vzb90ay4",
+        "rev": "dac2f11a40c4bb021df81c080dffacc878fd6384",
+        "sha256": "0mcxahqv4qfvcjcl5prld9xg1nv5fckaa69nxp6rw301gbmrxr23",
         "type": "tarball",
-        "url": "https://github.com/tek/tryp-hs/archive/5bcc76c48a98e2f63a06381333ac6bce6bf5900e.tar.gz",
+        "url": "https://github.com/tek/tryp-hs/archive/dac2f11a40c4bb021df81c080dffacc878fd6384.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }

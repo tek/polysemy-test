@@ -43,8 +43,8 @@ library
     , containers
     , either
     , hedgehog
-    , path
-    , path-io
+    , path >=0.8 && <0.9
+    , path-io >=0.3.1 && <0.4
     , polysemy
     , polysemy-plugin
     , relude
@@ -73,8 +73,8 @@ test-suite polysemy-test-unit
     , containers
     , either
     , hedgehog
-    , path
-    , path-io
+    , path >=0.8 && <0.9
+    , path-io >=0.3.1 && <0.4
     , polysemy
     , polysemy-plugin
     , polysemy-test

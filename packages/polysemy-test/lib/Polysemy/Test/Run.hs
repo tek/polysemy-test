@@ -51,11 +51,12 @@ interpretTestIn' base tempBase =
       Files.fixture base path
 
 createTemp ::
-  Member (Embed IO) r =>
+  Members [Error TestError, Embed IO] r =>
   Sem r (Path Abs Dir)
-createTemp = do
-  systemTmp <- getTempDir
-  createTempDir systemTmp "polysemy-test-"
+createTemp =
+  fromEither =<< (embed . runExceptT) do
+    systemTmp <- getTempDir
+    createTempDir systemTmp "polysemy-test-"
 
 -- |Interpret 'Test' so that fixtures are read from the directory @base@ and temp operations are performed in
 -- @/tmp/polysemy-test-XXX@.
@@ -63,17 +64,16 @@ createTemp = do
 -- This library uses 'Path' for all file system related tasks, so in order to construct paths manually, you'll have to
 -- use the quasiquoters 'Path.absdir' and 'reldir' or the functions 'parseAbsDir' and 'parseRelDir'.
 interpretTestKeepTemp ::
-  Member (Embed IO) r =>
+  Members [Error TestError, Embed IO] r =>
   Path Abs Dir ->
   InterpreterFor Test r
 interpretTestKeepTemp base sem = do
-  systemTmp <- getTempDir
-  tempBase <- createTempDir systemTmp "polysemy-test-"
+  tempBase <- createTemp
   (interpretTestIn' base tempBase) sem
 
 -- |like 'interpretTestKeepTemp', but deletes the temp dir after the test.
 interpretTest ::
-  Members [Resource, Embed IO] r =>
+  Members [Error TestError, Resource, Embed IO] r =>
   Path Abs Dir ->
   InterpreterFor Test r
 interpretTest base sem = do
@@ -88,7 +88,7 @@ interpretTest base sem = do
 -- most likely something like @test@.
 -- This is not necessarily consistent, it depends on which directory your test runner uses as cwd.
 interpretTestInSubdir ::
-  Members [Resource, Embed IO] r =>
+  Members [Error TestError, Resource, Embed IO] r =>
   Text ->
   InterpreterFor Test r
 interpretTestInSubdir prefix sem = do

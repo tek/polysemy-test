@@ -42,8 +42,8 @@ dependencies:
   - containers
   - either
   - hedgehog
-  - path
-  - path-io
+  - path ^>= 0.8
+  - path-io ^>= 0.3.1
   - polysemy
   - polysemy-plugin
   - relude
