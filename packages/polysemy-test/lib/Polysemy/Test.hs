@@ -22,6 +22,7 @@ module Polysemy.Test (
   assertJust,
   evalEither,
   evalMaybe,
+  evalError,
   interpretHedgehog,
   -- * Running 'Hedgehog' and 'Test' as 'TestT'
   runTestAutoWith,
@@ -46,7 +47,17 @@ import Test.Tasty.Hedgehog (testProperty)
 import Polysemy.Test.Data.Hedgehog (Hedgehog, liftH)
 import Polysemy.Test.Data.Test (Test, fixture, fixturePath, tempDir, tempFile, tempFileContent, testDir)
 import Polysemy.Test.Data.TestError (TestError(TestError))
-import Polysemy.Test.Hedgehog (assert, assertJust, assertRight, evalEither, evalMaybe, interpretHedgehog, (/==), (===))
+import Polysemy.Test.Hedgehog (
+  assert,
+  assertJust,
+  assertRight,
+  evalEither,
+  evalError,
+  evalMaybe,
+  interpretHedgehog,
+  (/==),
+  (===),
+  )
 import Polysemy.Test.Run (
   interpretTest,
   interpretTestInSubdir,

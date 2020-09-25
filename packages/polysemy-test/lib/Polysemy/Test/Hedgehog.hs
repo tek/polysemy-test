@@ -119,6 +119,18 @@ data ValueIsNothing =
   ValueIsNothing
   deriving Show
 
+-- |Like 'evalEither', but for 'Maybe'.
+evalMaybe ::
+  ∀ a m r .
+  Monad m =>
+  HasCallStack =>
+  Member (Hedgehog m) r =>
+  Maybe a ->
+  Sem r a
+evalMaybe ma =
+  withFrozenCallStack $ evalEither (maybeToRight ValueIsNothing ma)
+
+-- |Given a reference value, asserts that the scrutinee is 'Just' and its contained value matches the target.
 assertJust ::
   ∀ a m r .
   Eq a =>
@@ -132,12 +144,14 @@ assertJust ::
 assertJust target ma =
   withFrozenCallStack $ assertRight target (maybeToRight ValueIsNothing ma)
 
-evalMaybe ::
-  ∀ a m r .
+-- |Run a Polysemy 'Error' effect and assert its result.
+evalError ::
+  ∀ e a m r .
+  Show e =>
   Monad m =>
   HasCallStack =>
   Member (Hedgehog m) r =>
-  Maybe a ->
+  Sem (Error e : r) a ->
   Sem r a
-evalMaybe ma =
-  withFrozenCallStack $ evalEither (maybeToRight ValueIsNothing ma)
+evalError sem =
+  withFrozenCallStack $ evalEither =<< runError sem
