@@ -5,10 +5,11 @@ module Polysemy.Test.Run where
 import Control.Exception (catch)
 import qualified Control.Monad.Trans.Writer.Lazy as MTL
 import qualified Data.Text as Text
-import GHC.Stack.Types (SrcLoc(SrcLoc, srcLocModule, srcLocFile))
+import GHC.Stack.Types (SrcLoc(SrcLoc, srcLocFile), srcLocModule)
 import Hedgehog.Internal.Property (Failure, Journal, TestT(TestT), failWith)
 import Path (Abs, Dir, Path, parseAbsDir, parseRelDir, (</>))
 import Path.IO (canonicalizePath, createTempDir, getCurrentDir, getTempDir, removeDirRecur)
+import Polysemy.Fail (Fail, failToError)
 import Polysemy.Resource (Resource, bracket, resourceToIOFinal)
 import Polysemy.Writer (runLazyWriter)
 import System.IO.Error (IOError)
@@ -96,14 +97,6 @@ interpretTestInSubdir prefix sem = do
   base <- embed (canonicalizePath @_ @IO prefixPath)
   (interpretTest base) sem
 
-type TestEffects =
-  [
-    Error TestError,
-    Hedgehog IO,
-    Embed IO,
-    Final IO
-  ]
-
 errorToFailure ::
   Monad m =>
   Member (Hedgehog m) r =>
@@ -113,11 +106,17 @@ errorToFailure = \case
   Right a -> pure a
   Left (TestError e) -> liftH (failWith Nothing (toString e))
 
+failToFailure ::
+  Member (Error TestError) r =>
+  InterpreterFor Fail r
+failToFailure =
+  failToError (TestError . toText)
+
 -- |Run 'Hedgehog' and its dependent effects that correspond to the monad stack of 'TestT', exposing the monadic state.
 unwrapLiftedTestT ::
   Monad m =>
   Member (Embed m) r =>
-  Sem (Error TestError : Hedgehog m : r) a ->
+  Sem (Fail : Error TestError : Hedgehog m : r) a ->
   Sem r (Journal, Either Failure a)
 unwrapLiftedTestT =
   runLazyWriter .
@@ -125,14 +124,15 @@ unwrapLiftedTestT =
   rewriteHedgehog .
   raiseUnder2 .
   (>>= errorToFailure) .
-  runError
+  runError .
+  failToFailure
 
 -- |Run 'Hedgehog' with 'unwrapLiftedTestT' and wrap it back into the 'TestT' stack.
 semToTestT ::
   Monad m =>
   Member (Embed m) r =>
   (∀ x . Sem r x -> m x) ->
-  Sem (Error TestError : Hedgehog m : r) a ->
+  Sem (Fail : Error TestError : Hedgehog m : r) a ->
   TestT m a
 semToTestT run sem = do
   (journal, result) <- lift (run (unwrapLiftedTestT sem))
@@ -140,16 +140,27 @@ semToTestT run sem = do
 
 semToTestTFinal ::
   Monad m =>
-  Sem [Error TestError, Hedgehog m, Embed m, Final m] a ->
+  Sem [Fail, Error TestError, Hedgehog m, Embed m, Final m] a ->
   TestT m a
 semToTestTFinal =
   semToTestT (runFinal . embedToFinal)
+
+type TestEffects =
+  [
+    Test,
+    Resource,
+    Fail,
+    Error TestError,
+    Hedgehog IO,
+    Embed IO,
+    Final IO
+  ]
 
 -- |Convenience combinator that runs both 'Hedgehog' and 'Test' and rewraps the result in @'TestT' IO@, ready for
 -- execution as a property.
 runTest ::
   Path Abs Dir ->
-  Sem [Test, Resource, Error TestError, Hedgehog IO, Embed IO, Final IO] a ->
+  Sem TestEffects a ->
   TestT IO a
 runTest dir =
   semToTestTFinal .
@@ -159,7 +170,7 @@ runTest dir =
 -- |Same as 'runTest', but uses 'interpretTestInSubdir'.
 runTestInSubdir ::
   Text ->
-  Sem (Test : Resource : TestEffects) a ->
+  Sem TestEffects a ->
   TestT IO a
 runTestInSubdir prefix =
   semToTestTFinal .
@@ -192,7 +203,7 @@ runTestAutoWith ::
   HasCallStack =>
   Members [Resource, Embed IO] r =>
   (∀ x . Sem r x -> IO x) ->
-  Sem (Test : Error TestError : Hedgehog IO : r) a ->
+  Sem (Test : Fail : Error TestError : Hedgehog IO : r) a ->
   TestT IO a
 runTestAutoWith run sem =
   semToTestT run do
@@ -202,7 +213,7 @@ runTestAutoWith run sem =
 -- |Version of 'runTestAutoWith' specialized to @'Final' IO@
 runTestAuto ::
   HasCallStack =>
-  Sem [Test, Error TestError, Hedgehog IO, Embed IO, Resource, Final IO] a ->
+  Sem [Test, Fail, Error TestError, Hedgehog IO, Embed IO, Resource, Final IO] a ->
   TestT IO a
 runTestAuto =
   runTestAutoWith (runFinal . resourceToIOFinal . embedToFinal)
