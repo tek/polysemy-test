@@ -155,3 +155,35 @@ evalError ::
   Sem r a
 evalError sem =
   withFrozenCallStack $ evalEither =<< runError sem
+
+-- |Assert that two numeric values are closer to each other than the specified @delta@.
+assertCloseBy ::
+  ∀ a m r .
+  Num a =>
+  Ord a =>
+  Show a =>
+  Monad m =>
+  HasCallStack =>
+  Member (Hedgehog m) r =>
+  a ->
+  a ->
+  a ->
+  Sem r ()
+assertCloseBy delta target scrutinee =
+  withFrozenCallStack $ assert (abs (scrutinee - target) < delta)
+
+-- |Assert that two fractional values are closer to each other than @0.001@.
+assertClose ::
+  ∀ a m r .
+  Num a =>
+  Ord a =>
+  Fractional a =>
+  Show a =>
+  Monad m =>
+  HasCallStack =>
+  Member (Hedgehog m) r =>
+  a ->
+  a ->
+  Sem r ()
+assertClose =
+  withFrozenCallStack $ assertCloseBy 0.001

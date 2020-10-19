@@ -23,7 +23,7 @@ let
       options_ghc = "-fplugin=Polysemy.Plugin";
     };
     ghcid = {
-      prelude = base + /packages/polysemy-test/lib/Prelude;
+      prelude = "${toString base}/packages/polysemy-test/lib/Prelude.hs";
     };
     packageDir = "packages";
     cabal2nixOptions = "--no-hpack";

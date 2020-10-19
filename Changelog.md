@@ -1,3 +1,7 @@
+# 0.4.0.0
+
+* Add Hedgehog assertion combinators for the difference between numeric values.
+
 # 0.3.0.0
 
 * Add type parameter for the monad used by `TestT` to `Hedgehog`

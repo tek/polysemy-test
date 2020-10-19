@@ -23,6 +23,8 @@ module Polysemy.Test (
   evalEither,
   evalMaybe,
   evalError,
+  assertCloseBy,
+  assertClose,
   interpretHedgehog,
   -- * Running 'Hedgehog' and 'Test' as 'TestT'
   runTestAutoWith,
@@ -49,6 +51,8 @@ import Polysemy.Test.Data.Test (Test, fixture, fixturePath, tempDir, tempFile, t
 import Polysemy.Test.Data.TestError (TestError(TestError))
 import Polysemy.Test.Hedgehog (
   assert,
+  assertClose,
+  assertCloseBy,
   assertJust,
   assertRight,
   evalEither,
