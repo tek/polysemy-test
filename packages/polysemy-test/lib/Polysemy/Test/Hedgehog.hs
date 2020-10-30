@@ -115,6 +115,39 @@ assertRight ::
 assertRight a e =
   withFrozenCallStack $ (a ===) =<< evalEither e
 
+-- |Like 'assertRight', but for two nested Eithers.
+assertRight2 ::
+  ∀ a m e1 e2 r .
+  Eq a =>
+  Show e1 =>
+  Show e2 =>
+  Show a =>
+  Monad m =>
+  HasCallStack =>
+  Member (Hedgehog m) r =>
+  a ->
+  Either e1 (Either e2 a) ->
+  Sem r ()
+assertRight2 a e =
+  withFrozenCallStack $ assertRight a =<< evalEither e
+
+-- |Like 'assertRight', but for three nested Eithers.
+assertRight3 ::
+  ∀ a m e1 e2 e3 r .
+  Eq a =>
+  Show e1 =>
+  Show e2 =>
+  Show e3 =>
+  Show a =>
+  Monad m =>
+  HasCallStack =>
+  Member (Hedgehog m) r =>
+  a ->
+  Either e1 (Either e2 (Either e3 a)) ->
+  Sem r ()
+assertRight3 a e =
+  withFrozenCallStack $ assertRight2 a =<< evalEither e
+
 data ValueIsNothing =
   ValueIsNothing
   deriving Show
