@@ -6,7 +6,6 @@ module Polysemy.Test.Prelude (
   module Data.Either.Combinators,
   module Data.Foldable,
   module Data.Map.Strict,
-  module Data.String.Interpolate,
   module Debug.Trace,
   module GHC.Err,
   module Polysemy,
@@ -27,6 +26,7 @@ import qualified Data.Text as Text
 import Debug.Trace (trace, traceShow)
 import GHC.Err (undefined)
 import GHC.IO.Unsafe (unsafePerformIO)
+import Language.Haskell.TH.Quote (QuasiQuoter)
 import Polysemy (
   Effect,
   EffectRow,
@@ -235,3 +235,8 @@ mneToList :: Maybe (NonEmpty a) -> [a]
 mneToList =
   maybe [] toList
 {-# INLINE mneToList #-}
+
+qt :: QuasiQuoter
+qt =
+  i
+{-# INLINE qt #-}

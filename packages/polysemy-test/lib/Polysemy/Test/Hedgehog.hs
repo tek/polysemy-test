@@ -4,7 +4,7 @@ module Polysemy.Test.Hedgehog where
 
 import qualified Control.Monad.Trans.Writer.Lazy as MTL
 import qualified Hedgehog as Native
-import Hedgehog.Internal.Property (Failure, Journal, TestT(TestT))
+import Hedgehog.Internal.Property (failWith, Failure, Journal, TestT(TestT))
 import Polysemy.Writer (Writer, tell)
 
 import qualified Polysemy.Test.Data.Hedgehog as Hedgehog
@@ -112,8 +112,8 @@ assertRight ::
   a ->
   Either e a ->
   Sem r ()
-assertRight a e =
-  withFrozenCallStack $ (a ===) =<< evalEither e
+assertRight a =
+  withFrozenCallStack $ (a ===) <=< evalEither
 
 -- |Like 'assertRight', but for two nested Eithers.
 assertRight2 ::
@@ -128,8 +128,8 @@ assertRight2 ::
   a ->
   Either e1 (Either e2 a) ->
   Sem r ()
-assertRight2 a e =
-  withFrozenCallStack $ assertRight a =<< evalEither e
+assertRight2 a =
+  withFrozenCallStack $ assertRight a <=< evalEither
 
 -- |Like 'assertRight', but for three nested Eithers.
 assertRight3 ::
@@ -145,8 +145,38 @@ assertRight3 ::
   a ->
   Either e1 (Either e2 (Either e3 a)) ->
   Sem r ()
-assertRight3 a e =
-  withFrozenCallStack $ assertRight2 a =<< evalEither e
+assertRight3 a =
+  withFrozenCallStack $ assertRight2 a <=< evalEither
+
+-- |Like 'evalEither', but for 'Left'.
+evalLeft ::
+  ∀ a m e r .
+  Show a =>
+  Monad m =>
+  HasCallStack =>
+  Member (Hedgehog m) r =>
+  Either e a ->
+  Sem r e
+evalLeft = \case
+  Right a ->
+    withFrozenCallStack $ liftH $ failWith Nothing $ show a
+  Left e ->
+    pure e
+
+-- |Like 'assertRight', but for 'Left'.
+assertLeft ::
+  ∀ a m e r .
+  Eq e =>
+  Show e =>
+  Show a =>
+  Monad m =>
+  HasCallStack =>
+  Member (Hedgehog m) r =>
+  e ->
+  Either e a ->
+  Sem r ()
+assertLeft e =
+  withFrozenCallStack $ (e ===) <=< evalLeft
 
 data ValueIsNothing =
   ValueIsNothing

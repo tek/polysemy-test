@@ -51,6 +51,7 @@ dependencies:
   - string-interpolate >= 0.1 && < 0.4
   - tasty ^>= 1.2.3
   - tasty-hedgehog ^>= 1
+  - template-haskell
   - text
   - transformers
 
