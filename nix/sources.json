@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "polysemy-research",
         "repo": "polysemy",
-        "rev": "62f5af5d03c274f83fb03a0eb9afb93b299e385c",
-        "sha256": "1bhxcn72ncizsixj985sl03ganaqs9q6rzgs5xbznk423bsh5d6n",
+        "rev": "478c86e080f38334f7ea5b0259f900916db58c33",
+        "sha256": "0vpfc7w90gyj60ydzpjz9wilm28hcl8lbiwicw5qj1rnzj3lfy66",
         "type": "tarball",
-        "url": "https://github.com/polysemy-research/polysemy/archive/62f5af5d03c274f83fb03a0eb9afb93b299e385c.tar.gz",
+        "url": "https://github.com/polysemy-research/polysemy/archive/478c86e080f38334f7ea5b0259f900916db58c33.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "tryp-hs": {

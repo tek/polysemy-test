@@ -4,7 +4,7 @@ module Polysemy.Test.Hedgehog where
 
 import qualified Control.Monad.Trans.Writer.Lazy as MTL
 import qualified Hedgehog as Native
-import Hedgehog.Internal.Property (failWith, Failure, Journal, TestT(TestT))
+import Hedgehog.Internal.Property (Failure, Journal, TestT(TestT), failWith)
 import Polysemy.Writer (Writer, tell)
 
 import qualified Polysemy.Test.Data.Hedgehog as Hedgehog
