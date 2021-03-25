@@ -67,6 +67,20 @@ a === b =
 
 infix 4 /==
 
+-- |Prefix variant of '(===)'.
+assertEq ::
+  ∀ a m r .
+  Monad m =>
+  Eq a =>
+  Show a =>
+  HasCallStack =>
+  Member (Hedgehog m) r =>
+  a ->
+  a ->
+  Sem r ()
+assertEq a b =
+  withFrozenCallStack $ liftH (a Native.=== b)
+
 -- |Embeds 'Hedgehog./=='.
 --
 -- >>> 5 /== 5
@@ -85,6 +99,20 @@ infix 4 /==
   a ->
   Sem r ()
 a /== b =
+  withFrozenCallStack $ liftH (a Native./== b)
+
+-- |Prefix variant of '(===)'.
+assertNeq ::
+  ∀ a m r .
+  Monad m =>
+  Eq a =>
+  Show a =>
+  HasCallStack =>
+  Member (Hedgehog m) r =>
+  a ->
+  a ->
+  Sem r ()
+assertNeq a b =
   withFrozenCallStack $ liftH (a Native./== b)
 
 -- |Embeds 'Hedgehog.evalEither'.
