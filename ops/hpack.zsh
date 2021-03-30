@@ -1,3 +1,8 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-nix-shell -A hpack --run exit
+setopt err_exit
+
+base=${0:a:h:h}
+
+script=$(nix-build -A legacyPackages.x86_64-linux.hpack)
+$script $base
