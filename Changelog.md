@@ -1,6 +1,7 @@
-# 0.4.0.0
+# 0.3.1.0
 
 * Add Hedgehog assertion combinators for the difference between numeric values.
+* Add `assertEq` / `assertNeq` as prefix synonyms for `(===)` / `(/==)`.
 
 # 0.3.0.0
 

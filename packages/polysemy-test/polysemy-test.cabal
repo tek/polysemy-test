@@ -5,7 +5,7 @@ cabal-version: 2.2
 -- see: https://github.com/sol/hpack
 
 name:           polysemy-test
-version:        0.3.0.2
+version:        0.3.1.0
 synopsis:       Polysemy effects for testing
 description:    Please see the README on Github at <https://github.com/tek/polysemy-test>
 category:       Test
@@ -29,9 +29,9 @@ library
       Polysemy.Test.Hedgehog
       Polysemy.Test.Prelude
       Polysemy.Test.Run
-      Paths_polysemy_test
   other-modules:
       Prelude
+      Paths_polysemy_test
   autogen-modules:
       Paths_polysemy_test
   hs-source-dirs:
@@ -93,7 +93,7 @@ library
       UndecidableInstances
       UnicodeSyntax
       ViewPatterns
-  ghc-options: -Wall -fplugin=Polysemy.Plugin -O2 -flate-specialise -fspecialise-aggressively
+  ghc-options: -Wall -fplugin=Polysemy.Plugin -flate-specialise -fspecialise-aggressively
   build-depends:
       base ==4.*
     , containers
@@ -180,7 +180,7 @@ test-suite polysemy-test-unit
       UndecidableInstances
       UnicodeSyntax
       ViewPatterns
-  ghc-options: -Wall -fplugin=Polysemy.Plugin -O2 -flate-specialise -fspecialise-aggressively -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -fplugin=Polysemy.Plugin -flate-specialise -fspecialise-aggressively -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base ==4.*
     , containers

@@ -63,7 +63,7 @@ createTemp =
 -- @/tmp/polysemy-test-XXX@.
 --
 -- This library uses 'Path' for all file system related tasks, so in order to construct paths manually, you'll have to
--- use the quasiquoters 'Path.absdir' and 'reldir' or the functions 'parseAbsDir' and 'parseRelDir'.
+-- use the quasiquoters 'Path.absdir' and 'Path.reldir' or the functions 'parseAbsDir' and 'parseRelDir'.
 interpretTestKeepTemp ::
   Members [Error TestError, Embed IO] r =>
   Path Abs Dir ->
@@ -138,6 +138,7 @@ semToTestT run sem = do
   (journal, result) <- lift (run (unwrapLiftedTestT sem))
   TestT (ExceptT (result <$ MTL.tell journal))
 
+-- |'Final' version of 'semToTestT'.
 semToTestTFinal ::
   Monad m =>
   Sem [Fail, Error TestError, Hedgehog m, Embed m, Final m] a ->

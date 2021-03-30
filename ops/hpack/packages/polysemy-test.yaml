@@ -1,6 +1,6 @@
 name: polysemy-test
 synopsis: Polysemy effects for testing
-version: 0.3.0.2
+version: 0.3.1.0
 description: Please see the README on Github at <https://github.com/tek/polysemy-test>
 license: BSD-2-Clause-Patent
 license-file: LICENSE
@@ -17,7 +17,7 @@ library:
   source-dirs: lib
   other-modules:
     - Prelude
-  generated-exposed-modules:
+  generated-other-modules:
     - Paths_polysemy_test
 
 tests:
@@ -58,7 +58,6 @@ dependencies:
 ghc-options:
   - -Wall
   - -fplugin=Polysemy.Plugin
-  - -O2
   - -flate-specialise
   - -fspecialise-aggressively
 
