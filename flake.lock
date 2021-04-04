@@ -49,17 +49,17 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1602473909,
-        "narHash": "sha256-tZfZhmjYNX4UrUySEjbosJO7Bj3eiCGnjfX5DkVClQw=",
+        "lastModified": 1616670887,
+        "narHash": "sha256-wn+l9qJfR5sj5Gq4DheJHAcBDfOs9K2p9seW2f35xzs=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "cfed29bfcb28259376713005d176a6f82951014a",
+        "rev": "c0e881852006b132236cbf0301bd1939bb50867e",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "cfed29bfcb28259376713005d176a6f82951014a",
+        "rev": "c0e881852006b132236cbf0301bd1939bb50867e",
         "type": "github"
       }
     },
@@ -82,11 +82,11 @@
     "polysemy": {
       "flake": false,
       "locked": {
-        "lastModified": 1617126697,
-        "narHash": "sha256-nGnA5CC4DLZ5TkYTPpBRfqP3FuT+ey7zZSJWu3g7f0Q=",
+        "lastModified": 1617203992,
+        "narHash": "sha256-wPLCdBlw2vPIhreSbOcJNT3j7PqGiE/rLBLEIUUMZzQ=",
         "owner": "polysemy-research",
         "repo": "polysemy",
-        "rev": "04642d090b1c683df476c9ec07c1017faa6134b5",
+        "rev": "43a67061fb2a6cd2f545c5bd5e8320f2a228fb6b",
         "type": "github"
       },
       "original": {
@@ -166,11 +166,11 @@
         "thax": "thax"
       },
       "locked": {
-        "lastModified": 1617131879,
-        "narHash": "sha256-C9su013rmHql1Yxys/7JvMSFaTJVQ6np4hgr6eStnqA=",
+        "lastModified": 1617490381,
+        "narHash": "sha256-7j/nkKueM5yS0szSx/AT+VWdA1XkIiOwHzxO6hoSKTI=",
         "owner": "tek",
         "repo": "tryp-hs",
-        "rev": "a0f572f7fe806164022e7c7f459f3c130fd660f9",
+        "rev": "98c96209c6e5bfdb78b5d6ffca830029833869b5",
         "type": "github"
       },
       "original": {

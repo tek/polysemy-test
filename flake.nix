@@ -2,7 +2,7 @@
   description = "Polysemy effects for testing";
 
   inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/cfed29bfcb28259376713005d176a6f82951014a;
+    nixpkgs.url = github:NixOS/nixpkgs/c0e881852006b132236cbf0301bd1939bb50867e;
     flake-utils.url = github:numtide/flake-utils;
     tryp-hs.url = github:tek/tryp-hs;
     tryp-hs.inputs.nixpkgs.follows = "nixpkgs";
@@ -18,7 +18,7 @@
       project = tryp-hs.project {
         inherit system;
         base = ./.;
-        compiler = "ghc8102";
+        compiler = "ghc8104";
         packages = {
           polysemy-test = "packages/polysemy-test";
         };
