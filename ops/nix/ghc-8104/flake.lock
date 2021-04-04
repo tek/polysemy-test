@@ -46,6 +46,21 @@
         "type": "github"
       }
     },
+    "flake-utils_3": {
+      "locked": {
+        "lastModified": 1614513358,
+        "narHash": "sha256-LakhOx3S1dRjnh0b5Dg3mbZyH0ToC9I8Y2wKSkBaTzU=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "5466c5bbece17adaab2d82fae80b46e807611bf3",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
     "hls": {
       "flake": false,
       "locked": {
@@ -190,6 +205,7 @@
     "tryp-hs": {
       "inputs": {
         "brittany": "brittany",
+        "flake-utils": "flake-utils_3",
         "hls": "hls",
         "nixpkgs": [
           "nixpkgs"
@@ -200,11 +216,11 @@
         "thax": "thax"
       },
       "locked": {
-        "lastModified": 1617490381,
-        "narHash": "sha256-7j/nkKueM5yS0szSx/AT+VWdA1XkIiOwHzxO6hoSKTI=",
+        "lastModified": 1617575147,
+        "narHash": "sha256-0xBeVhci2F+MfD0PzfE/RvpjHT2n+9VAsCNmS6hMIMY=",
         "owner": "tek",
         "repo": "tryp-hs",
-        "rev": "98c96209c6e5bfdb78b5d6ffca830029833869b5",
+        "rev": "c1f51d569f13e8969de5d9261aa93887fc657392",
         "type": "github"
       },
       "original": {

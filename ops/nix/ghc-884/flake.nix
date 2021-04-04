@@ -9,9 +9,5 @@
     polysemy.url = github:polysemy-research/polysemy;
   };
 
-  outputs = inputs:
-  let
-    system = "x86_64-linux"; 
-    project = import ../project.nix { inherit system inputs; compiler = "ghc884"; };
-  in { defaultPackage.${system} = project.ghc.polysemy-test; };
+  outputs = { tryp-hs, ... }: import ../outputs.nix { inherit tryp-hs; compiler = "ghc884"; };
 }
