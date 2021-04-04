@@ -10,9 +10,14 @@
   };
 
   outputs = { tryp-hs, ...}@inputs:
-    import ./ops/nix/outputs.nix {
-      inherit tryp-hs;
+    tryp-hs.flake {
+      base = ./.;
       compiler = "ghc8104";
+      main = "polysemy-test";
       overrides = import ./ops/nix/overrides.nix inputs;
+      packages.polysemy-test = "packages/polysemy-test";
+      ghci.extraArgs = ["-fplugin=Polysemy.Plugin"];
+      ghcid.prelude = "packages/polysemy-test/lib/Prelude.hs";
+      packageDir = "packages";
     };
 }
