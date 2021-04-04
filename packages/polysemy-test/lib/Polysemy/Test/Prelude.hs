@@ -1,4 +1,5 @@
-{-# OPTIONS_HADDOCK hide #-}
+{-# options_haddock hide #-}
+{-# options_ghc -Wno-missing-import-lists #-}
 {-# LANGUAGE NoImplicitPrelude #-}
 
 module Polysemy.Test.Prelude (

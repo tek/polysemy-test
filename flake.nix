@@ -18,7 +18,9 @@
         compiler = "ghc8104";
         overrides = import ./ops/nix/overrides.nix inputs;
         packages.polysemy-test = "packages/polysemy-test";
-        ghcid. prelude = "packages/polysemy-test/lib/Prelude.hs";
+        ghci.extraArgs = ["-fplugin=Polysemy.Plugin"];
+        ghcid.prelude = "packages/polysemy-test/lib/Prelude.hs";
+        ghcid.system-hls = true;
         packageDir = "packages";
       };
     in {
@@ -29,12 +31,14 @@
         ghc = project.ghc;
         ghcid = project.ghcid-flake;
         run = project.ghcid-flake.run;
+        shell = project.ghcid-flake.shell;
         cabal = project.cabal;
         tags = project.tags.projectTags;
         hpack = project.hpack-script {};
       };
       packages = {
         polysemy-time = project.ghc.polysemy-test;
+        release = project.cabal.release "polysemy-test";
       };
       checks = {
         polysemy-time = project.ghc.polysemy-test;

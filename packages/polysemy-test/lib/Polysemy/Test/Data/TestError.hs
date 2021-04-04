@@ -1,4 +1,4 @@
-{-# OPTIONS_HADDOCK hide #-}
+{-# options_haddock hide #-}
 
 module Polysemy.Test.Data.TestError where
 

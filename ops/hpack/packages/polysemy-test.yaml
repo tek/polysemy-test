@@ -1,6 +1,6 @@
 name: polysemy-test
 synopsis: Polysemy effects for testing
-version: 0.3.1.0
+version: 0.3.1.1
 description: Please see the README on Github at <https://github.com/tek/polysemy-test>
 license: BSD-2-Clause-Patent
 license-file: LICENSE
@@ -10,8 +10,8 @@ copyright: "2020 Torsten Schmits"
 category: Test
 build-type: Simple
 extra-source-files:
-  - README.md
-  - Changelog.md
+  - readme.md
+  - changelog.md
 
 library:
   source-dirs: lib
@@ -58,8 +58,6 @@ dependencies:
 ghc-options:
   - -Wall
   - -fplugin=Polysemy.Plugin
-  - -flate-specialise
-  - -fspecialise-aggressively
 
 default-extensions:
   - AllowAmbiguousTypes

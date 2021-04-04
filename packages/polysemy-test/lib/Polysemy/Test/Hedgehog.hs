@@ -1,4 +1,4 @@
-{-# OPTIONS_HADDOCK hide #-}
+{-# options_haddock hide #-}
 
 module Polysemy.Test.Hedgehog where
 
@@ -252,7 +252,6 @@ assertCloseBy ::
   ∀ a m r .
   Num a =>
   Ord a =>
-  Show a =>
   Monad m =>
   HasCallStack =>
   Member (Hedgehog m) r =>
@@ -266,10 +265,8 @@ assertCloseBy delta target scrutinee =
 -- |Assert that two fractional values are closer to each other than @0.001@.
 assertClose ::
   ∀ a m r .
-  Num a =>
   Ord a =>
   Fractional a =>
-  Show a =>
   Monad m =>
   HasCallStack =>
   Member (Hedgehog m) r =>
