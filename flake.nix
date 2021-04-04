@@ -6,10 +6,7 @@
     flake-utils.url = github:numtide/flake-utils;
     tryp-hs.url = github:tek/tryp-hs;
     tryp-hs.inputs.nixpkgs.follows = "nixpkgs";
-    polysemy = {
-      url = github:polysemy-research/polysemy;
-      flake = false;
-    };
+    polysemy.url = github:polysemy-research/polysemy;
   };
 
   outputs = { self, nixpkgs, tryp-hs, flake-utils, ... }@inputs:
@@ -19,20 +16,18 @@
         inherit system;
         base = ./.;
         compiler = "ghc8104";
-        packages = {
-          polysemy-test = "packages/polysemy-test";
-        };
         overrides = import ./ops/nix/overrides.nix inputs;
-        ghci = {
-          basicArgs = ["-Wall" "-Werror"];
-        };
-        ghcid.prelude = "packages/polysemy-test/lib/Prelude.hs";
+        packages.polysemy-test = "packages/polysemy-test";
+        ghcid. prelude = "packages/polysemy-test/lib/Prelude.hs";
         packageDir = "packages";
       };
     in {
       defaultPackage = project.ghc.polysemy-test;
       devShell = project.ghcid-flake.shell;
       legacyPackages = {
+        pkgs = project.pkgs;
+        ghc = project.ghc;
+        ghcid = project.ghcid-flake;
         run = project.ghcid-flake.run;
         cabal = project.cabal;
         tags = project.tags.projectTags;
