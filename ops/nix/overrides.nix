@@ -2,6 +2,7 @@ inputs:
 {
   pkgs,
   hackage,
+  ...
 }:
 self: super:
 let
