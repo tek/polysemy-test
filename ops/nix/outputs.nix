@@ -1,7 +1,7 @@
 {
   tryp-hs,
   compiler,
-  overrides ? _: _: _: {}
+  overrides ? _: _: _: {},
 }:
 tryp-hs.flake {
   main = "polysemy-test";
