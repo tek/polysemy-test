@@ -180,7 +180,7 @@ test-suite polysemy-test-unit
       UndecidableInstances
       UnicodeSyntax
       ViewPatterns
-  ghc-options: -Wall -fplugin=Polysemy.Plugin -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -fplugin=Polysemy.Plugin -threaded -rtsopts -with-rtsopts=-N -fplugin=Polysemy.Plugin
   build-depends:
       base >=4.12 && <5
     , containers
