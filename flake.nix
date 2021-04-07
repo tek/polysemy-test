@@ -25,7 +25,6 @@
       overrides = tryp-hs.overrides overrides;
       packages.polysemy-test = "packages/polysemy-test";
       ghci.extraArgs = ["-fplugin=Polysemy.Plugin"];
-      ghcid.prelude = "packages/polysemy-test/lib/Prelude.hs";
       versionFile = "ops/hpack/packages/polysemy-test.yaml";
     };
 }
