@@ -1,15 +1,9 @@
 {
   description = "Polysemy effects for testing";
 
-  inputs = {
-    nixpkgs.url = github:NixOS/nixpkgs/c0e881852006b132236cbf0301bd1939bb50867e;
-    tryp-hs = {
-      url = github:tek/tryp-hs;
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
+  inputs.tryp-hs.url = github:tek/tryp-hs;
 
-  outputs = { tryp-hs, ...}@inputs:
+  outputs = { tryp-hs, ... }:
   let
     overrides = { hackage, source, ... }: {
       path = hackage "0.8.0" "0isldidz2gypw2pz399g6rn77x9mppd1mvj5h6ify4pj4mpla0pb";
@@ -20,9 +14,7 @@
   in
     tryp-hs.flake {
       base = ./.;
-      compiler = "ghc8104";
-      main = "polysemy-test";
-      overrides = tryp-hs.overrides overrides;
+      inherit overrides;
       packages.polysemy-test = "packages/polysemy-test";
       ghci.extraArgs = ["-fplugin=Polysemy.Plugin"];
       versionFile = "ops/hpack/packages/polysemy-test.yaml";
