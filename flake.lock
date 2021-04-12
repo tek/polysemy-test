@@ -163,11 +163,11 @@
         "thax": "thax"
       },
       "locked": {
-        "lastModified": 1618261926,
-        "narHash": "sha256-t7uvLCW+AcZQ8w6Sw1/pdDXnnYA6RrM2NYGPb+RORWw=",
+        "lastModified": 1618267769,
+        "narHash": "sha256-77JGnWvGC4zsIazJUcJcBII0vlolrJz8UmiUpgQzsr4=",
         "owner": "tek",
         "repo": "tryp-hs",
-        "rev": "ea4a19b8ae8a5b9093568d380da39ae47b13028c",
+        "rev": "ca6eda863c2234ab2f7438f5a707b35d5e62a3df",
         "type": "github"
       },
       "original": {
