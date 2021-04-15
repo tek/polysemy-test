@@ -1,9 +1,9 @@
 {
-  description = "Polysemy effects for testing";
+  description = "Polysemy Effects for Testing";
 
-  inputs.tryp-hs.url = github:tek/tryp-hs;
+  inputs.hix.url = github:tek/hix;
 
-  outputs = { tryp-hs, ... }:
+  outputs = { hix, ... }:
   let
     overrides = { hackage, source, ... }: {
       path = hackage "0.8.0" "0isldidz2gypw2pz399g6rn77x9mppd1mvj5h6ify4pj4mpla0pb";
@@ -12,7 +12,7 @@
       polysemy-plugin = hackage "0.3.0.0" "1frz0iksmg8bpm7ybnpz9h75hp6hajd20vpdvmi04aspklmr6hj0";
     };
   in
-    tryp-hs.flake {
+    hix.flake {
       base = ./.;
       inherit overrides;
       packages.polysemy-test = "packages/polysemy-test";
