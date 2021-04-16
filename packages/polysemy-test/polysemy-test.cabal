@@ -18,6 +18,8 @@ build-type:     Simple
 extra-source-files:
     readme.md
     changelog.md
+data-files:
+    test/fixtures/files/file1
 
 library
   exposed-modules:

@@ -12,6 +12,8 @@ build-type: Simple
 extra-source-files:
   - readme.md
   - changelog.md
+data-files:
+  - test/fixtures/**/*
 
 library:
   source-dirs: lib
