@@ -1,3 +1,5 @@
+{-# options_ghc -Wno-unused-imports #-}
+
 module Polysemy.Test.Test.FilesTest where
 
 import qualified Data.Text as Text
