@@ -4,20 +4,17 @@
   inputs = {
     hix.url = github:tek/hix;
     polysemy.url = github:polysemy-research/polysemy;
-    path = {
-      url = github:commercialhaskell/path;
-      flake = false;
-    };
   };
 
-  outputs = { hix, polysemy, path, ... }:
+  outputs = { hix, polysemy, ... }:
   let
-    compat = { hackage, source, only, jailbreak, minimal, configure, noHpack, ... }: {
-      path = only "9.0.1" (source.root path);
-      polysemy = only "9.0.1" (noHpack (minimal (source.root polysemy)));
-      polysemy-plugin = only "9.0.1" (noHpack (minimal (source.sub polysemy "polysemy-plugin")));
-      relude = only "9.0.1" (hackage "1.0.0.1" "164p21334c3pyfzs839cv90438naxq9pmpyvy87113mwy51gm6xn");
-      type-errors-pretty = only "9.0.1" jailbreak;
+    compat901 = { hackage, source, only, jailbreak, minimal, configure, noHpack, ... }: {
+      path = hackage "0.9.0" "14symzl1rszvk5zivv85k79anz7xyl5gaxy0sm4vhhzsgxc59msv";
+      path-io = jailbreak (hackage "1.6.3" "05hcxgyf6kkz36mazd0fqwb6mjy2049gx3vh8qq9h93gfjkpp2vc");
+      polysemy = noHpack (minimal (source.root polysemy));
+      polysemy-plugin = noHpack (minimal (source.sub polysemy "polysemy-plugin"));
+      relude = hackage "1.0.0.1" "164p21334c3pyfzs839cv90438naxq9pmpyvy87113mwy51gm6xn";
+      type-errors-pretty = jailbreak;
     };
 
     overrides = { hackage, source, only, jailbreak, ... }: {
@@ -30,7 +27,7 @@
     hix.flake {
       base = ./.;
       overrides = overrides;
-      compatOverrides = compat;
+      compatOverrides = { ghc901 = compat901; };
       packages.polysemy-test = "packages/polysemy-test";
       ghci.extraArgs = ["-fplugin=Polysemy.Plugin"];
       versionFile = "ops/hpack/packages/polysemy-test.yaml";
