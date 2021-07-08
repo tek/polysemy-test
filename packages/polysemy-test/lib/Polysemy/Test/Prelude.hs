@@ -12,7 +12,6 @@ module Polysemy.Test.Prelude (
   module Polysemy,
   module Polysemy.AtomicState,
   module Polysemy.Error,
-  module Polysemy.Internal.Bundle,
   module Polysemy.Reader,
   module Polysemy.State,
   module Relude,
@@ -52,7 +51,6 @@ import Polysemy (
   )
 import Polysemy.AtomicState (AtomicState, atomicGet, atomicGets, atomicModify', atomicPut, runAtomicStateTVar)
 import Polysemy.Error (Error, fromEither, mapError, note, runError, throw)
-import Polysemy.Internal.Bundle (Append)
 import Polysemy.Reader (Reader)
 import Polysemy.State (State, evalState, get, gets, modify, modify', put, runState)
 import Relude hiding (
@@ -205,9 +203,6 @@ throwEitherIO :: Either Text a -> IO a
 throwEitherIO =
   traverseLeft throwTextIO
 {-# INLINE throwEitherIO #-}
-
-type a ++ b =
-  Append a b
 
 rightOr :: (a -> b) -> Either a b -> b
 rightOr f =
