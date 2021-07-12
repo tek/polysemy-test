@@ -40,7 +40,7 @@ tests:
 
 dependencies:
   - name: base
-    version: '>= 4.12'
+    version: '>= 4.12 && < 5'
     mixin:
       - hiding (Prelude)
   - containers

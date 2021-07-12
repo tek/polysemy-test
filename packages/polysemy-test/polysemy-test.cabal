@@ -97,7 +97,7 @@ library
       ViewPatterns
   ghc-options: -Wall -fplugin=Polysemy.Plugin
   build-depends:
-      base >=4.12
+      base >=4.12 && <5
     , containers
     , either
     , hedgehog >=1.0.2
@@ -184,7 +184,7 @@ test-suite polysemy-test-unit
       ViewPatterns
   ghc-options: -Wall -fplugin=Polysemy.Plugin -threaded -rtsopts -with-rtsopts=-N -fplugin=Polysemy.Plugin
   build-depends:
-      base >=4.12
+      base >=4.12 && <5
     , containers
     , either
     , hedgehog >=1.0.2
