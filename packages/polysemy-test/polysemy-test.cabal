@@ -97,18 +97,18 @@ library
       ViewPatterns
   ghc-options: -Wall -fplugin=Polysemy.Plugin
   build-depends:
-      base >=4.12 && <5
+      base >=4.12
     , containers
     , either
-    , hedgehog >=1.0.2 && <1.1
-    , path >=0.7 && <0.10
-    , path-io >=0.2 && <1.7
-    , polysemy >=1.3 && <1.6
+    , hedgehog >=1.0.2
+    , path >=0.7
+    , path-io >=0.2
+    , polysemy >=1.3
     , polysemy-plugin >=0.2.5
-    , relude >=0.7 && <1.2
-    , string-interpolate >=0.1 && <0.4
-    , tasty >=1.1 && <1.5
-    , tasty-hedgehog >=1.0.0.2 && <1.2
+    , relude >=0.7
+    , string-interpolate >=0.1
+    , tasty >=1.1
+    , tasty-hedgehog >=1.0.0.2
     , template-haskell
     , text
     , transformers
@@ -184,19 +184,19 @@ test-suite polysemy-test-unit
       ViewPatterns
   ghc-options: -Wall -fplugin=Polysemy.Plugin -threaded -rtsopts -with-rtsopts=-N -fplugin=Polysemy.Plugin
   build-depends:
-      base >=4.12 && <5
+      base >=4.12
     , containers
     , either
-    , hedgehog >=1.0.2 && <1.1
-    , path >=0.7 && <0.10
-    , path-io >=0.2 && <1.7
-    , polysemy >=1.3 && <1.6
+    , hedgehog >=1.0.2
+    , path >=0.7
+    , path-io >=0.2
+    , polysemy >=1.3
     , polysemy-plugin >=0.2.5
     , polysemy-test
-    , relude >=0.7 && <1.2
-    , string-interpolate >=0.1 && <0.4
+    , relude >=0.7
+    , string-interpolate >=0.1
     , tasty
-    , tasty-hedgehog >=1.0.0.2 && <1.2
+    , tasty-hedgehog >=1.0.0.2
     , template-haskell
     , text
     , transformers
