@@ -25,7 +25,7 @@
     hix.flake {
       base = ./.;
       overrides = [common overrides];
-      compatOverrides = { ghc901 = [common compat901]; };
+      compatOverrides = { ghc8104 = [common]; ghc901 = [common compat901]; };
       packages.polysemy-test = "packages/polysemy-test";
       ghci.extraArgs = ["-fplugin=Polysemy.Plugin"];
       versionFile = "ops/hpack/packages/polysemy-test.yaml";
