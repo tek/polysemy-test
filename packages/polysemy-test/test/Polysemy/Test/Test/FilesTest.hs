@@ -15,9 +15,9 @@ test_fixture =
     fixContent1 <- fixtureLines fixRel
     fixPath <- Test.fixturePath fixRel
     fixContent2 <- Text.lines <$> embed (Text.readFile (toFilePath fixPath))
-    fixContent1 === fixContent2
-    fixContent1 === ["file", "content"]
-    fixContent1 /== ["file", "content", "and more"]
+    (===) @_ @IO fixContent1 fixContent2
+    (===) @_ @IO fixContent1 ["file", "content"]
+    (/==) @_ @IO fixContent1 ["file", "content", "and more"]
   where
     fixRel =
       [relfile|files/file1|]
@@ -28,8 +28,8 @@ test_tempFile =
     tempFile <- Test.tempFile content path
     tempFileContent1 <- tempFileLines path
     tempFIleContent2 <- Text.lines <$> embed (Text.readFile (toFilePath tempFile))
-    tempFileContent1 === tempFIleContent2
-    tempFileContent1 === content
+    (===) @_ @IO tempFileContent1 tempFIleContent2
+    (===) @_ @IO tempFileContent1 content
   where
     path =
       [relfile|tempfile/file1|]

@@ -1,10 +1,10 @@
 module Polysemy.Test.Test.HedgehogTest where
 
 import Hedgehog (TestT, assert)
-import Hedgehog.Internal.Property (Failure(Failure), runTestT)
-
+import Hedgehog.Internal.Property (Failure (Failure), runTestT)
 import Polysemy.Fail (Fail)
 import Polysemy.Resource (Resource)
+
 import Polysemy.Test (UnitTest, runTestAuto, (/==))
 import Polysemy.Test.Data.Hedgehog (Hedgehog)
 import Polysemy.Test.Data.Test (Test)
@@ -14,7 +14,7 @@ import Polysemy.Test.Run (semToTestTFinal)
 
 test_hedgehogRewrite :: UnitTest
 test_hedgehogRewrite =
-  semToTestTFinal ((1 :: Int) /== 2)
+  semToTestTFinal ((/==) @_ @IO (1 :: Int) 2)
 
 hedgehogTest ::
   Sem [Test, Fail, Error TestError, Hedgehog IO, Embed IO, Resource, Final IO] () ->
@@ -50,5 +50,5 @@ test_fail = do
 
 test_close :: UnitTest
 test_close = do
-  hedgehogSuccess (assertClose (1.11111 :: Double) 1.111111111111)
-  hedgehogFail (assertClose (1.11 :: Double) 1.111111111111)
+  hedgehogSuccess (assertClose @_ @IO (1.11111 :: Double) 1.111111111111)
+  hedgehogFail (assertClose @_ @IO (1.11 :: Double) 1.111111111111)

@@ -5,8 +5,8 @@ module Polysemy.Test.Run where
 import Control.Exception (catch)
 import qualified Control.Monad.Trans.Writer.Lazy as MTL
 import qualified Data.Text as Text
-import GHC.Stack.Types (SrcLoc(SrcLoc, srcLocFile), srcLocModule)
-import Hedgehog.Internal.Property (Failure, Journal, TestT(TestT), failWith)
+import GHC.Stack.Types (SrcLoc (SrcLoc, srcLocFile), srcLocModule)
+import Hedgehog.Internal.Property (Failure, Journal, TestT (TestT), failWith)
 import Path (Abs, Dir, Path, parseAbsDir, parseRelDir, (</>))
 import Path.IO (canonicalizePath, createTempDir, getCurrentDir, getTempDir, removeDirRecur)
 import Polysemy.Fail (Fail, failToError)
@@ -17,7 +17,7 @@ import System.IO.Error (IOError)
 import Polysemy.Test.Data.Hedgehog (Hedgehog, liftH)
 import qualified Polysemy.Test.Data.Test as Test
 import Polysemy.Test.Data.Test (Test)
-import Polysemy.Test.Data.TestError (TestError(TestError))
+import Polysemy.Test.Data.TestError (TestError (TestError))
 import qualified Polysemy.Test.Files as Files
 import Polysemy.Test.Hedgehog (rewriteHedgehog)
 
@@ -55,7 +55,7 @@ createTemp ::
   Members [Error TestError, Embed IO] r =>
   Sem r (Path Abs Dir)
 createTemp =
-  fromEither =<< (embed . runExceptT) do
+  fromEither @TestError =<< (embed @IO . runExceptT) do
     systemTmp <- getTempDir
     createTempDir systemTmp "polysemy-test-"
 
@@ -98,13 +98,14 @@ interpretTestInSubdir prefix sem = do
   (interpretTest base) sem
 
 errorToFailure ::
+  ∀ m r a .
   Monad m =>
   Member (Hedgehog m) r =>
   Either TestError a ->
   Sem r a
 errorToFailure = \case
   Right a -> pure a
-  Left (TestError e) -> liftH (failWith Nothing (toString e))
+  Left (TestError e) -> liftH @m (failWith Nothing (toString e))
 
 failToFailure ::
   Member (Error TestError) r =>
@@ -114,6 +115,7 @@ failToFailure =
 
 -- |Run 'Hedgehog' and its dependent effects that correspond to the monad stack of 'TestT', exposing the monadic state.
 unwrapLiftedTestT ::
+  ∀ m r a .
   Monad m =>
   Member (Embed m) r =>
   Sem (Fail : Error TestError : Hedgehog m : r) a ->
@@ -123,7 +125,7 @@ unwrapLiftedTestT =
   runError .
   rewriteHedgehog .
   raiseUnder2 .
-  (>>= errorToFailure) .
+  (>>= errorToFailure @m) .
   runError .
   failToFailure
 
@@ -185,7 +187,7 @@ callingTestDir ::
 callingTestDir = do
   SrcLoc { srcLocFile = toText -> file, srcLocModule = toText -> modl } <- note emptyCallStack deepestSrcLoc
   dirPrefix <- note badSrcLoc (Text.stripSuffix (Text.replace "." "/" modl <> ".hs") file)
-  cwd <- embed getCurrentDir
+  cwd <- embed @IO getCurrentDir
   note badSrcLoc (parseDir cwd (toString dirPrefix))
   where
     emptyCallStack =

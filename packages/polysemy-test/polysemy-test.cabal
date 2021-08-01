@@ -95,7 +95,7 @@ library
       UndecidableInstances
       UnicodeSyntax
       ViewPatterns
-  ghc-options: -Wall -fplugin=Polysemy.Plugin
+  ghc-options: -Wall
   build-depends:
       base >=4.12 && <5
     , containers
@@ -104,7 +104,6 @@ library
     , path >=0.7
     , path-io >=0.2
     , polysemy >=1.3
-    , polysemy-plugin >=0.2.5
     , relude >=0.7
     , string-interpolate >=0.1
     , tasty >=1.1
@@ -182,7 +181,7 @@ test-suite polysemy-test-unit
       UndecidableInstances
       UnicodeSyntax
       ViewPatterns
-  ghc-options: -Wall -fplugin=Polysemy.Plugin -threaded -rtsopts -with-rtsopts=-N -fplugin=Polysemy.Plugin
+  ghc-options: -Wall -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.12 && <5
     , containers
@@ -191,7 +190,6 @@ test-suite polysemy-test-unit
     , path >=0.7
     , path-io >=0.2
     , polysemy >=1.3
-    , polysemy-plugin >=0.2.5
     , polysemy-test
     , relude >=0.7
     , string-interpolate >=0.1

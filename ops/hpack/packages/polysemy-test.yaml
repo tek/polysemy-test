@@ -30,7 +30,6 @@ tests:
       - -threaded
       - -rtsopts
       - -with-rtsopts=-N
-      - -fplugin=Polysemy.Plugin
     dependencies:
       - name: polysemy-test
         mixin:
@@ -49,7 +48,6 @@ dependencies:
   - path >= 0.7
   - path-io >= 0.2
   - polysemy >= 1.3
-  - polysemy-plugin >= 0.2.5
   - relude >= 0.7
   - string-interpolate >= 0.1
   - tasty >= 1.1
@@ -60,7 +58,6 @@ dependencies:
 
 ghc-options:
   - -Wall
-  - -fplugin=Polysemy.Plugin
 
 default-extensions:
   - AllowAmbiguousTypes

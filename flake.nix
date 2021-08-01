@@ -14,7 +14,6 @@
 
     common = { hackage, ... }: {
       polysemy = hackage "1.6.0.0" "15k51ysrfcbkww1562g8zvrlzymlk2rxhcsz9ipsb0q6h571qgvf";
-      polysemy-plugin = hackage "0.4.0.0" "0pah1a8h8ckbv2fq20hrikrd1p5a3bdxr03npkyixc6mv5k1rmck";
     };
 
     overrides = { hackage, source, ... }: {
@@ -27,7 +26,6 @@
       overrides = [common overrides];
       compatOverrides = { ghc8104 = [common]; ghc901 = [common compat901]; };
       packages.polysemy-test = "packages/polysemy-test";
-      ghci.extraArgs = ["-fplugin=Polysemy.Plugin"];
       versionFile = "ops/hpack/packages/polysemy-test.yaml";
     };
 }
