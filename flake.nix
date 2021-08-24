@@ -27,6 +27,6 @@
       compatOverrides = { ghc8104 = [common]; ghc901 = [common compat901]; };
       packages.polysemy-test = "packages/polysemy-test";
       versionFile = "ops/hpack/packages/polysemy-test.yaml";
-      easy-hls = false;
+      ghcid.easy-hls = false;
     };
 }

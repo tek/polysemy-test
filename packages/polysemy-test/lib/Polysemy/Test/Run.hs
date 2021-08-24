@@ -55,7 +55,7 @@ createTemp ::
   Members [Error TestError, Embed IO] r =>
   Sem r (Path Abs Dir)
 createTemp =
-  fromEither @TestError =<< (embed @IO . runExceptT) do
+  fromEither . mapLeft TestError =<< tryAny do
     systemTmp <- getTempDir
     createTempDir systemTmp "polysemy-test-"
 
