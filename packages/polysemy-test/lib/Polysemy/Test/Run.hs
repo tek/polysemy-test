@@ -11,7 +11,7 @@ import Path (Abs, Dir, Path, parseAbsDir, parseRelDir, (</>))
 import Path.IO (canonicalizePath, createTempDir, getCurrentDir, getTempDir, removeDirRecur)
 import Polysemy.Fail (Fail, failToError)
 import Polysemy.Resource (Resource, bracket, resourceToIOFinal)
-import Polysemy.Writer (runLazyWriter)
+import Polysemy.Writer (runWriter)
 import System.IO.Error (IOError)
 
 import Polysemy.Test.Data.Hedgehog (Hedgehog, liftH)
@@ -121,7 +121,7 @@ unwrapLiftedTestT ::
   Sem (Fail : Error TestError : Hedgehog m : r) a ->
   Sem r (Journal, Either Failure a)
 unwrapLiftedTestT =
-  runLazyWriter .
+  runWriter .
   runError .
   rewriteHedgehog .
   raiseUnder2 .
