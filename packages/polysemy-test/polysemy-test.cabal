@@ -5,7 +5,7 @@ cabal-version: 2.2
 -- see: https://github.com/sol/hpack
 
 name:           polysemy-test
-version:        0.3.1.8
+version:        0.3.1.9
 synopsis:       Polysemy Effects for Testing
 description:    See https://hackage.haskell.org/package/polysemy-test/docs/Polysemy-Test.html
 category:       Test
