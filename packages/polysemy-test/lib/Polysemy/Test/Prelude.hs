@@ -21,12 +21,10 @@ import Control.Exception (throwIO, try)
 import Data.Either.Combinators (mapLeft)
 import Data.Foldable (foldl, traverse_)
 import Data.Map.Strict (Map, lookup)
-import Data.String.Interpolate (i)
 import qualified Data.Text as Text
 import Debug.Trace (trace, traceShow)
 import GHC.Err (undefined)
 import GHC.IO.Unsafe (unsafePerformIO)
-import Language.Haskell.TH.Quote (QuasiQuoter)
 import Polysemy (
   Effect,
   EffectRow,
@@ -231,8 +229,3 @@ mneToList :: Maybe (NonEmpty a) -> [a]
 mneToList =
   maybe [] toList
 {-# INLINE mneToList #-}
-
-qt :: QuasiQuoter
-qt =
-  i
-{-# INLINE qt #-}
