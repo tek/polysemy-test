@@ -1,9 +1,7 @@
-{-# options_haddock hide #-}
-
+-- |Test Effect, Internal
 module Polysemy.Test.Data.Test where
 
 import Path (Abs, Dir, File, Path, Rel)
-import Polysemy (makeSem_)
 
 -- |Operations for interacting with fixtures and temp files in a test.
 data Test :: Effect where
@@ -29,7 +27,7 @@ tempDir ::
   Path Rel Dir ->
   Sem r (Path Abs Dir)
 
--- |Write the specified lines of 'Text' to a file under the temp dir and return its absolute path.
+-- |Write the specified lines of 'Data.Text.Text' to a file under the temp dir and return its absolute path.
 tempFile ::
   ∀ r .
   Member Test r =>

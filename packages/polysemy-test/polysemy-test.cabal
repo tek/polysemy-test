@@ -11,7 +11,7 @@ description:    See https://hackage.haskell.org/package/polysemy-test/docs/Polys
 category:       Test
 author:         Torsten Schmits
 maintainer:     haskell@tryp.io
-copyright:      2021 Torsten Schmits
+copyright:      2022 Torsten Schmits
 license:        BSD-2-Clause-Patent
 license-file:   LICENSE
 build-type:     Simple
@@ -29,13 +29,7 @@ library
       Polysemy.Test.Data.TestError
       Polysemy.Test.Files
       Polysemy.Test.Hedgehog
-      Polysemy.Test.Prelude
       Polysemy.Test.Run
-  other-modules:
-      Prelude
-      Paths_polysemy_test
-  autogen-modules:
-      Paths_polysemy_test
   hs-source-dirs:
       lib
   default-extensions:
@@ -98,16 +92,13 @@ library
   ghc-options: -Wall -Wredundant-constraints -Wunused-packages
   build-depends:
       base >=4.12 && <5
-    , containers
-    , either
     , hedgehog >=1.0.2
+    , incipit-core
     , path >=0.7
     , path-io >=0.2
     , polysemy >=1.3
-    , relude >=0.7
     , tasty >=1.1
     , tasty-hedgehog >=1.0.0.2
-    , text
     , transformers
   mixins:
       base hiding (Prelude)
@@ -119,9 +110,6 @@ test-suite polysemy-test-unit
   other-modules:
       Polysemy.Test.Test.FilesTest
       Polysemy.Test.Test.HedgehogTest
-      Paths_polysemy_test
-  autogen-modules:
-      Paths_polysemy_test
   hs-source-dirs:
       test
   default-extensions:
@@ -185,13 +173,11 @@ test-suite polysemy-test-unit
   build-depends:
       base >=4.12 && <5
     , hedgehog
+    , incipit-core
     , path
     , polysemy
     , polysemy-test
     , tasty
-    , text
   mixins:
       base hiding (Prelude)
-    , polysemy-test hiding (Polysemy.Test.Prelude)
-    , polysemy-test (Polysemy.Test.Prelude as Prelude)
   default-language: Haskell2010

@@ -1,11 +1,13 @@
-{-# options_haddock hide #-}
+{-# options_haddock prune #-}
 
+-- |Hedgehog interpreters, internal
 module Polysemy.Test.Hedgehog where
 
+import Control.Monad.Trans.Except (runExceptT)
 import qualified Control.Monad.Trans.Writer.Lazy as MTL
+import GHC.Stack (withFrozenCallStack)
 import qualified Hedgehog as Native
 import Hedgehog.Internal.Property (Failure, Journal, TestT (TestT), failWith)
-import Polysemy.Writer (Writer, tell)
 
 import qualified Polysemy.Test.Data.Hedgehog as Hedgehog
 import Polysemy.Test.Data.Hedgehog (Hedgehog, liftH)

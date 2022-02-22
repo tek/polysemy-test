@@ -1,9 +1,8 @@
 module Polysemy.Test.Test.HedgehogTest where
 
+import Control.Monad.IO.Class (liftIO)
 import Hedgehog (TestT, assert)
 import Hedgehog.Internal.Property (Failure (Failure), runTestT)
-import Polysemy.Fail (Fail)
-import Polysemy.Resource (Resource)
 
 import Polysemy.Test (UnitTest, runTestAuto, (/==))
 import Polysemy.Test.Data.Hedgehog (Hedgehog)
@@ -20,7 +19,7 @@ hedgehogTest ::
   Sem [Test, Fail, Error TestError, Hedgehog IO, Embed IO, Resource, Final IO] () ->
   TestT IO Bool
 hedgehogTest prog =
-  extract . fst <$> liftIO (runTestT $ runTestAuto $ prog)
+  extract . fst <$> liftIO (runTestT (runTestAuto prog))
   where
     extract = \case
       Left (Failure (Just _) _ _) ->

@@ -1,5 +1,6 @@
-{-# options_haddock hide #-}
+{-# options_haddock prune #-}
 
+-- |File Utilities, Internal
 module Polysemy.Test.Files where
 
 import qualified Data.Text as Text
@@ -59,12 +60,12 @@ fixturePath ::
   Path Rel p ->
   Sem r (Path Abs p)
 fixturePath base path = do
-  return $ base </> [reldir|fixtures|] </> path
+  pure (base </> [reldir|fixtures|] </> path)
 
 fixture ::
   Member (Embed IO) r =>
   Path Abs Dir ->
   Path Rel File ->
   Sem r Text
-fixture base subPath = do
+fixture base subPath =
   readFile =<< fixturePath base subPath

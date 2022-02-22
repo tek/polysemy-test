@@ -1,5 +1,6 @@
-{-# options_haddock hide #-}
+{-# options_haddock prune #-}
 
+-- |TestError Newtype, Internal
 module Polysemy.Test.Data.TestError where
 
 -- |An error that occured in the test machinery.

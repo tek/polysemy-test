@@ -1,17 +1,18 @@
-{-# options_haddock hide #-}
+{-# options_haddock prune #-}
 
+-- |Test Interpreters, Internal
 module Polysemy.Test.Run where
 
-import Control.Exception (catch)
+import qualified Control.Exception as Base
+import Control.Monad.Trans.Class (lift)
+import Control.Monad.Trans.Except (ExceptT (ExceptT))
 import qualified Control.Monad.Trans.Writer.Lazy as MTL
 import qualified Data.Text as Text
-import GHC.Stack.Types (SrcLoc (SrcLoc, srcLocFile), srcLocModule)
+import GHC.Stack (callStack)
+import GHC.Stack.Types (SrcLoc (SrcLoc, srcLocFile), getCallStack, srcLocModule)
 import Hedgehog.Internal.Property (Failure, Journal, TestT (TestT), failWith)
 import Path (Abs, Dir, Path, parseAbsDir, parseRelDir, (</>))
 import Path.IO (canonicalizePath, createTempDir, getCurrentDir, getTempDir, removeDirRecur)
-import Polysemy.Fail (Fail, failToError)
-import Polysemy.Resource (Resource, bracket, resourceToIOFinal)
-import Polysemy.Writer (runWriter)
 import System.IO.Error (IOError)
 
 import Polysemy.Test.Data.Hedgehog (Hedgehog, liftH)
@@ -25,7 +26,7 @@ ignoringIOErrors ::
   IO () ->
   IO ()
 ignoringIOErrors ioe =
-  catch ioe handler
+  Base.catch ioe handler
   where
     handler :: Monad m => IOError -> m ()
     handler =
@@ -55,7 +56,7 @@ createTemp ::
   Members [Error TestError, Embed IO] r =>
   Sem r (Path Abs Dir)
 createTemp =
-  fromEither . mapLeft TestError =<< tryAny do
+  fromEither . first TestError =<< tryAny do
     systemTmp <- getTempDir
     createTempDir systemTmp "polysemy-test-"
 
@@ -70,7 +71,7 @@ interpretTestKeepTemp ::
   InterpreterFor Test r
 interpretTestKeepTemp base sem = do
   tempBase <- createTemp
-  (interpretTestIn' base tempBase) sem
+  interpretTestIn' base tempBase sem
 
 -- |like 'interpretTestKeepTemp', but deletes the temp dir after the test.
 interpretTest ::
@@ -83,7 +84,7 @@ interpretTest base sem = do
     release tempBase =
       embed (ignoringIOErrors (removeDirRecur tempBase))
     use tempBase =
-      (interpretTestIn' base tempBase) sem
+      interpretTestIn' base tempBase sem
 
 -- |Call 'interpretTest' with the subdirectory @prefix@ of the current working directory as the base dir, which is
 -- most likely something like @test@.
@@ -95,7 +96,7 @@ interpretTestInSubdir ::
 interpretTestInSubdir prefix sem = do
   prefixPath <- embed (parseRelDir @IO (toString prefix))
   base <- embed (canonicalizePath @_ @IO prefixPath)
-  (interpretTest base) sem
+  interpretTest base sem
 
 errorToFailure ::
   ∀ m r a .
@@ -136,8 +137,8 @@ semToTestT ::
   (∀ x . Sem r x -> m x) ->
   Sem (Fail : Error TestError : Hedgehog m : r) a ->
   TestT m a
-semToTestT run sem = do
-  (journal, result) <- lift (run (unwrapLiftedTestT sem))
+semToTestT runSem sem = do
+  (journal, result) <- lift (runSem (unwrapLiftedTestT sem))
   TestT (ExceptT (result <$ MTL.tell journal))
 
 -- |'Final' version of 'semToTestT'.
@@ -208,8 +209,8 @@ runTestAutoWith ::
   (∀ x . Sem r x -> IO x) ->
   Sem (Test : Fail : Error TestError : Hedgehog IO : r) a ->
   TestT IO a
-runTestAutoWith run sem =
-  semToTestT run do
+runTestAutoWith runSem sem =
+  semToTestT runSem do
     base <- callingTestDir
     interpretTest base sem
 

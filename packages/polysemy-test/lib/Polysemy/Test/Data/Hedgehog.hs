@@ -1,8 +1,7 @@
-{-# options_haddock hide #-}
+{-# options_haddock prune #-}
 
+-- |Hedgehog Effect, Internal
 module Polysemy.Test.Data.Hedgehog where
-
-import Polysemy.Internal (send)
 
 import Hedgehog (TestT)
 
