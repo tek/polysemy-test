@@ -22,12 +22,6 @@
     base = ./.;
     packages.polysemy-test = ./packages/polysemy-test;
     overrides = { inherit all ghc921; };
-    compat.projects = {
-      "921" = {};
-      "902" = {};
-      "8107" = {};
-      "884" = {};
-    };
     hackage.versionFile = "ops/hpack/packages/polysemy-test.yaml";
   };
 }

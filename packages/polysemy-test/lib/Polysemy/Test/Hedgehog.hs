@@ -42,7 +42,8 @@ assert ::
   Bool ->
   Sem r ()
 assert a =
-  withFrozenCallStack $ liftH @m (Native.assert a)
+  withFrozenCallStack do
+    liftH @m (Native.assert a)
 
 infix 4 ===
 
@@ -65,7 +66,8 @@ infix 4 ===
   a ->
   Sem r ()
 a === b =
-  withFrozenCallStack $ liftH @m (a Native.=== b)
+  withFrozenCallStack do
+    liftH @m (a Native.=== b)
 
 infix 4 /==
 
@@ -81,7 +83,8 @@ assertEq ::
   a ->
   Sem r ()
 assertEq a b =
-  withFrozenCallStack $ liftH @m (a Native.=== b)
+  withFrozenCallStack do
+    liftH @m (a Native.=== b)
 
 -- |Embeds 'Hedgehog./=='.
 --
@@ -101,7 +104,8 @@ assertEq a b =
   a ->
   Sem r ()
 a /== b =
-  withFrozenCallStack $ liftH @m (a Native./== b)
+  withFrozenCallStack do
+    liftH @m (a Native./== b)
 
 -- |Prefix variant of '(/==)'.
 assertNeq ::
@@ -115,7 +119,8 @@ assertNeq ::
   a ->
   Sem r ()
 assertNeq a b =
-  withFrozenCallStack $ liftH @m (a Native./== b)
+  withFrozenCallStack do
+    liftH @m (a Native./== b)
 
 -- |Embeds 'Hedgehog.evalEither'.
 evalEither ::
@@ -127,7 +132,8 @@ evalEither ::
   Either e a ->
   Sem r a
 evalEither e =
-  withFrozenCallStack $ liftH @m (Native.evalEither e)
+  withFrozenCallStack do
+    liftH @m (Native.evalEither e)
 
 -- |Given a reference value, unpacks an 'Either' with 'evalEither' and applies '===' to the result in the
 -- 'Right' case, and produces a test failure in the 'Left' case.
@@ -143,7 +149,8 @@ assertRight ::
   Either e a ->
   Sem r ()
 assertRight a =
-  withFrozenCallStack $ (assertEq @_ @m a) <=< evalEither @_ @m
+  withFrozenCallStack do
+    assertEq @_ @m a <=< evalEither @_ @m
 
 -- |Like 'assertRight', but for two nested Eithers.
 assertRight2 ::
@@ -159,7 +166,8 @@ assertRight2 ::
   Either e1 (Either e2 a) ->
   Sem r ()
 assertRight2 a =
-  withFrozenCallStack $ assertRight @_ @m a <=< evalEither @_ @m
+  withFrozenCallStack do
+    assertRight @_ @m a <=< evalEither @_ @m
 
 -- |Like 'assertRight', but for three nested Eithers.
 assertRight3 ::
@@ -176,7 +184,8 @@ assertRight3 ::
   Either e1 (Either e2 (Either e3 a)) ->
   Sem r ()
 assertRight3 a =
-  withFrozenCallStack $ assertRight2 @_ @m a <=< evalEither @_ @m
+  withFrozenCallStack do
+    assertRight2 @_ @m a <=< evalEither @_ @m
 
 -- |Like 'evalEither', but for 'Left'.
 evalLeft ::
@@ -189,7 +198,8 @@ evalLeft ::
   Sem r e
 evalLeft = \case
   Right a ->
-    withFrozenCallStack $ liftH @m $ failWith Nothing $ show a
+    withFrozenCallStack do
+      liftH @m (failWith Nothing (show a))
   Left e ->
     pure e
 
@@ -206,7 +216,8 @@ assertLeft ::
   Either e a ->
   Sem r ()
 assertLeft e =
-  withFrozenCallStack $ (assertEq @_ @m e) <=< evalLeft @_ @m
+  withFrozenCallStack do
+    assertEq @_ @m e <=< evalLeft @_ @m
 
 data ValueIsNothing =
   ValueIsNothing
@@ -221,7 +232,8 @@ evalMaybe ::
   Maybe a ->
   Sem r a
 evalMaybe ma =
-  withFrozenCallStack $ evalEither @_ @m (maybeToRight ValueIsNothing ma)
+  withFrozenCallStack do
+    evalEither @_ @m (maybeToRight ValueIsNothing ma)
 
 -- |Given a reference value, asserts that the scrutinee is 'Just' and its contained value matches the target.
 assertJust ::
@@ -235,7 +247,8 @@ assertJust ::
   Maybe a ->
   Sem r ()
 assertJust target ma =
-  withFrozenCallStack $ assertRight @_ @m target (maybeToRight ValueIsNothing ma)
+  withFrozenCallStack do
+    assertRight @_ @m target (maybeToRight ValueIsNothing ma)
 
 -- |Run a Polysemy 'Error' effect and assert its result.
 evalError ::
@@ -247,7 +260,8 @@ evalError ::
   Sem (Error e : r) a ->
   Sem r a
 evalError sem =
-  withFrozenCallStack $ evalEither @_ @m =<< runError sem
+  withFrozenCallStack do
+    evalEither @_ @m =<< runError sem
 
 -- |Assert that two numeric values are closer to each other than the specified @delta@.
 assertCloseBy ::
@@ -262,7 +276,8 @@ assertCloseBy ::
   a ->
   Sem r ()
 assertCloseBy delta target scrutinee =
-  withFrozenCallStack $ assert @m (abs (scrutinee - target) < delta)
+  withFrozenCallStack do
+    assert @m (abs (scrutinee - target) < delta)
 
 -- |Assert that two fractional values are closer to each other than @0.001@.
 assertClose ::
@@ -276,4 +291,5 @@ assertClose ::
   a ->
   Sem r ()
 assertClose =
-  withFrozenCallStack $ assertCloseBy @_ @m 0.001
+  withFrozenCallStack do
+    assertCloseBy @_ @m 0.001

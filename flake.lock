@@ -49,11 +49,11 @@
         "thax": "thax"
       },
       "locked": {
-        "lastModified": 1645561930,
-        "narHash": "sha256-yG4Z9Gyu6lwl6QO+OW3w2MSl9UyW9wnIIfX3wJlIry0=",
+        "lastModified": 1645575099,
+        "narHash": "sha256-LLFic7MpXVzk3L46BOEbH9kFeZqirET5eFj9EmNxbgU=",
         "owner": "tek",
         "repo": "hix",
-        "rev": "29e1e7b1056d1d562cd5b6370f16737fe63d03a1",
+        "rev": "f721d1ae03e4d91264c8fc8c841c87a4aeed858b",
         "type": "github"
       },
       "original": {
@@ -175,17 +175,17 @@
     },
     "nixpkgs_ghc921": {
       "locked": {
-        "lastModified": 1642069818,
-        "narHash": "sha256-666w6j8wl/bojfgpp0k58/UJ5rbrdYFbI2RFT2BXbSQ=",
-        "owner": "NixOS",
+        "lastModified": 1645433236,
+        "narHash": "sha256-4va4MvJ076XyPp5h8sm5eMQvCrJ6yZAbBmyw95dGyw4=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "46821ea01c8f54d2a20f5a503809abfc605269d7",
+        "rev": "7f9b6e2babf232412682c09e57ed666d8f84ac2d",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "46821ea01c8f54d2a20f5a503809abfc605269d7",
+        "rev": "7f9b6e2babf232412682c09e57ed666d8f84ac2d",
         "type": "github"
       }
     },
