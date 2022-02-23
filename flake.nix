@@ -23,5 +23,6 @@
     packages.polysemy-test = ./packages/polysemy-test;
     overrides = { inherit all ghc921; };
     hackage.versionFile = "ops/hpack/packages/polysemy-test.yaml";
+    ghci.preludePackage = "incipit-core";
   };
 }
