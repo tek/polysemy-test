@@ -1,6 +1,6 @@
 name: polysemy-test
 synopsis: Polysemy Effects for Testing
-version: 0.4.0.1
+version: 0.5.0.0
 description: See https://hackage.haskell.org/package/polysemy-test/docs/Polysemy-Test.html
 license: BSD-2-Clause-Patent
 license-file: LICENSE
