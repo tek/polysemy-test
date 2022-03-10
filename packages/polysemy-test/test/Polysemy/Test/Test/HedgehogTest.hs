@@ -1,6 +1,5 @@
 module Polysemy.Test.Test.HedgehogTest where
 
-import Control.Monad.IO.Class (liftIO)
 import Hedgehog (TestT, assert)
 import Hedgehog.Internal.Property (Failure (Failure), runTestT)
 

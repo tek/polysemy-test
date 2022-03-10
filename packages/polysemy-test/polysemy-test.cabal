@@ -93,7 +93,7 @@ library
   build-depends:
       base >=4.12 && <5
     , hedgehog >=1.0.2
-    , incipit-core
+    , incipit-core >=0.2
     , path >=0.7
     , path-io >=0.2
     , polysemy >=1.3
