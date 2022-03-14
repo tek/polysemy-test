@@ -18,11 +18,12 @@
       incipit-core = hackage "0.2.0.0" "1v4xrqwcylbk32b6hzl6i7k0964varw2iy73s7mkjxpxpdg432ci";
     };
 
-  in hix.lib.flake {
+  in hix.lib.flake ({ config, ... }: {
     base = ./.;
     packages.polysemy-test = ./packages/polysemy-test;
     overrides = { inherit all ghc921; };
-    hackage.versionFile = "ops/hpack/packages/polysemy-test.yaml";
     ghci.preludePackage = "incipit-core";
-  };
+    hpack.packages.polysemy-test = import ./ops/hpack.nix { inherit config; };
+    hackage.versionFile = "ops/version.nix";
+  });
 }

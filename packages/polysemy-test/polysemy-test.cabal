@@ -46,8 +46,10 @@ library
       DeriveFoldable
       DeriveFunctor
       DeriveGeneric
+      DeriveLift
       DeriveTraversable
       DerivingStrategies
+      DerivingVia
       DisambiguateRecordFields
       DoAndIfThenElse
       DuplicateRecordFields
@@ -77,6 +79,7 @@ library
       RankNTypes
       RecordWildCards
       RecursiveDo
+      RoleAnnotations
       ScopedTypeVariables
       StandaloneDeriving
       TemplateHaskell
@@ -126,8 +129,10 @@ test-suite polysemy-test-unit
       DeriveFoldable
       DeriveFunctor
       DeriveGeneric
+      DeriveLift
       DeriveTraversable
       DerivingStrategies
+      DerivingVia
       DisambiguateRecordFields
       DoAndIfThenElse
       DuplicateRecordFields
@@ -157,6 +162,7 @@ test-suite polysemy-test-unit
       RankNTypes
       RecordWildCards
       RecursiveDo
+      RoleAnnotations
       ScopedTypeVariables
       StandaloneDeriving
       TemplateHaskell
@@ -172,12 +178,12 @@ test-suite polysemy-test-unit
   ghc-options: -Wall -Wredundant-constraints -Wunused-packages -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       base >=4.12 && <5
-    , hedgehog
-    , incipit-core
-    , path
-    , polysemy
+    , hedgehog >=1.0.2
+    , incipit-core >=0.2
+    , path >=0.7
+    , polysemy >=1.3
     , polysemy-test
-    , tasty
+    , tasty >=1.1
   mixins:
       base hiding (Prelude)
   default-language: Haskell2010
