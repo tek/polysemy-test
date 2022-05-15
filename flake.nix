@@ -6,10 +6,8 @@
   outputs = { hix, ... }:
   let
 
-    ghc921 = { hackage, jailbreak, ... }: {
-      path = hackage "0.9.2" "1dp45vvx7y78lc0cvd0fp1s5vmj85ywi2b6gag67wkfgsd4a4zpz";
-      polysemy = hackage "1.7.1.0" "0qwli1kx3hk68hqsgw65mk81bx0djw1wlk17v8ggym7mf3lailyc";
-      type-errors = hackage "0.2.0.0" "19km8k3g5gn69vvpq0qi0wzsrcjz5k6kb6qjrccq7za39z9slr2z";
+    ghc922 = { hackage, jailbreak, notest, ... }: {
+      type-errors = notest;
     };
 
     all = { hackage, source, ... }: {
@@ -21,7 +19,7 @@
   in hix.lib.flake ({ config, ... }: {
     base = ./.;
     packages.polysemy-test = ./packages/polysemy-test;
-    overrides = { inherit all ghc921; };
+    overrides = { inherit all ghc922; };
     ghci.preludePackage = "incipit-core";
     hpack.packages.polysemy-test = import ./ops/hpack.nix { inherit config; };
     hackage.versionFile = "ops/version.nix";

@@ -25,11 +25,12 @@ in {
   name = "polysemy-test";
   synopsis = "Polysemy Effects for Testing";
   version = import ./version.nix;
+  github = "tek/polysemy-test";
   description = "See https://hackage.haskell.org/package/polysemy-test/docs/Polysemy-Test.html";
   license = "BSD-2-Clause-Patent";
   license-file = "LICENSE";
   author = "Torsten Schmits";
-  maintainer = "haskell@tryp.io";
+  maintainer = "hackage@tryp.io";
   copyright = "2022 Torsten Schmits";
   category = "Test";
   build-type = "Simple";

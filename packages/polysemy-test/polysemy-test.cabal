@@ -9,8 +9,10 @@ version:        0.5.0.0
 synopsis:       Polysemy Effects for Testing
 description:    See https://hackage.haskell.org/package/polysemy-test/docs/Polysemy-Test.html
 category:       Test
+homepage:       https://github.com/tek/polysemy-test#readme
+bug-reports:    https://github.com/tek/polysemy-test/issues
 author:         Torsten Schmits
-maintainer:     haskell@tryp.io
+maintainer:     hackage@tryp.io
 copyright:      2022 Torsten Schmits
 license:        BSD-2-Clause-Patent
 license-file:   LICENSE
@@ -20,6 +22,10 @@ extra-source-files:
     changelog.md
 data-files:
     test/fixtures/files/file1
+
+source-repository head
+  type: git
+  location: https://github.com/tek/polysemy-test
 
 library
   exposed-modules:

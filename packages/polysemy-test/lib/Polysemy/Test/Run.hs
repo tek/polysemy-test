@@ -119,13 +119,13 @@ unwrapLiftedTestT ::
   ∀ m r a .
   Monad m =>
   Member (Embed m) r =>
-  Sem (Fail : Error TestError : Hedgehog m : r) a ->
+  Sem (Fail : Error TestError : Hedgehog m : Error Failure : r) a ->
   Sem r (Journal, Either Failure a)
 unwrapLiftedTestT =
   runWriter .
   runError .
   rewriteHedgehog .
-  raiseUnder2 .
+  raise2Under .
   (>>= errorToFailure @m) .
   runError .
   failToFailure
@@ -135,7 +135,7 @@ semToTestT ::
   Monad m =>
   Member (Embed m) r =>
   (∀ x . Sem r x -> m x) ->
-  Sem (Fail : Error TestError : Hedgehog m : r) a ->
+  Sem (Fail : Error TestError : Hedgehog m : Error Failure : r) a ->
   TestT m a
 semToTestT runSem sem = do
   (journal, result) <- lift (runSem (unwrapLiftedTestT sem))
@@ -144,7 +144,7 @@ semToTestT runSem sem = do
 -- |'Final' version of 'semToTestT'.
 semToTestTFinal ::
   Monad m =>
-  Sem [Fail, Error TestError, Hedgehog m, Embed m, Final m] a ->
+  Sem [Fail, Error TestError, Hedgehog m, Error Failure, Embed m, Final m] a ->
   TestT m a
 semToTestTFinal =
   semToTestT (runFinal . embedToFinal)
@@ -156,6 +156,7 @@ type TestEffects =
     Fail,
     Error TestError,
     Hedgehog IO,
+    Error Failure,
     Embed IO,
     Final IO
   ]
@@ -207,7 +208,7 @@ runTestAutoWith ::
   HasCallStack =>
   Members [Resource, Embed IO] r =>
   (∀ x . Sem r x -> IO x) ->
-  Sem (Test : Fail : Error TestError : Hedgehog IO : r) a ->
+  Sem (Test : Fail : Error TestError : Hedgehog IO : Error Failure : r) a ->
   TestT IO a
 runTestAutoWith runSem sem =
   semToTestT runSem do
@@ -217,7 +218,7 @@ runTestAutoWith runSem sem =
 -- |Version of 'runTestAutoWith' specialized to @'Final' IO@
 runTestAuto ::
   HasCallStack =>
-  Sem [Test, Fail, Error TestError, Hedgehog IO, Embed IO, Resource, Final IO] a ->
+  Sem [Test, Fail, Error TestError, Hedgehog IO, Error Failure, Embed IO, Resource, Final IO] a ->
   TestT IO a
 runTestAuto =
   runTestAutoWith (runFinal . resourceToIOFinal . embedToFinal)

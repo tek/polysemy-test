@@ -15,7 +15,7 @@ test_hedgehogRewrite =
   semToTestTFinal ((/==) @_ @IO (1 :: Int) 2)
 
 hedgehogTest ::
-  Sem [Test, Fail, Error TestError, Hedgehog IO, Embed IO, Resource, Final IO] () ->
+  Sem [Test, Fail, Error TestError, Hedgehog IO, Error Failure, Embed IO, Resource, Final IO] () ->
   TestT IO Bool
 hedgehogTest prog =
   extract . fst <$> liftIO (runTestT (runTestAuto prog))
@@ -27,13 +27,13 @@ hedgehogTest prog =
         True
 
 hedgehogSuccess ::
-  Sem [Test, Fail, Error TestError, Hedgehog IO, Embed IO, Resource, Final IO] () ->
+  Sem [Test, Fail, Error TestError, Hedgehog IO, Error Failure, Embed IO, Resource, Final IO] () ->
   UnitTest
 hedgehogSuccess =
   assert <=< hedgehogTest
 
 hedgehogFail ::
-  Sem [Test, Fail, Error TestError, Hedgehog IO, Embed IO, Resource, Final IO] () ->
+  Sem [Test, Fail, Error TestError, Hedgehog IO, Error Failure, Embed IO, Resource, Final IO] () ->
   UnitTest
 hedgehogFail =
   assert . not <=< hedgehogTest
