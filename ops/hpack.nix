@@ -15,7 +15,7 @@ let
   commonDeps = [
     base
     "hedgehog >= 1.0.2"
-    "incipit-core >= 0.2"
+    { name = "incipit-core"; version = ">= 0.2"; mixin = ["(IncipitCore as Prelude)" "hiding (IncipitCore)"]; }
     "path >= 0.7"
     "polysemy >= 1.3"
     "tasty >= 1.1"

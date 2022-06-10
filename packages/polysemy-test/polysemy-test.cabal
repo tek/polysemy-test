@@ -111,6 +111,8 @@ library
     , transformers
   mixins:
       base hiding (Prelude)
+    , incipit-core (IncipitCore as Prelude)
+    , incipit-core hiding (IncipitCore)
   default-language: Haskell2010
 
 test-suite polysemy-test-unit
@@ -192,4 +194,6 @@ test-suite polysemy-test-unit
     , tasty >=1.1
   mixins:
       base hiding (Prelude)
+    , incipit-core (IncipitCore as Prelude)
+    , incipit-core hiding (IncipitCore)
   default-language: Haskell2010
