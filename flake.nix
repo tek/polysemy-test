@@ -2,9 +2,8 @@
   description = "Polysemy Effects for Testing";
 
   inputs.hix.url = github:tek/hix;
-  inputs.incipit-core.url = github:tek/incipit-core?ref=release/0.3;
 
-  outputs = { hix, incipit-core, ... }:
+  outputs = { hix, ... }:
   let
 
     ghc922 = { hackage, jailbreak, notest, ... }: {
@@ -13,10 +12,8 @@
 
     all = { hackage, source, ... }: {
       polysemy = hackage "1.6.0.0" "15k51ysrfcbkww1562g8zvrlzymlk2rxhcsz9ipsb0q6h571qgvf";
-      incipit-base = source.package incipit-core "incipit-base";
-      incipit-core = source.package incipit-core "incipit-core";
-      # incipit-base = hackage "0.2.0.0" "12979prkjk1kr1556mwsgf1v04rzd67xg68x6q9pnvm41pxbvk5w";
-      # incipit-core = hackage "0.2.0.0" "1v4xrqwcylbk32b6hzl6i7k0964varw2iy73s7mkjxpxpdg432ci";
+      incipit-base = hackage "0.3.0.0" "1078yyl5k94c9pr16rqd1i1g1fj8zx4iswhk7rcxb8f10fjqzapg";
+      incipit-core = hackage "0.3.0.0" "0q11zmxlpdb72p8c8zvr5hd7qca9c37crm70lm16jxlzw1qxk51b";
     };
 
   in hix.lib.flake ({ config, ... }: {

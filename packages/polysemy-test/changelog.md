@@ -1,3 +1,7 @@
+# 0.6.0.0
+
+* Expose the `Error Failure` effect in the hedgehog interpret stack to allow throwing `Failure` manually.
+
 # 0.3.1.0
 
 * Add Hedgehog assertion combinators for the difference between numeric values.
