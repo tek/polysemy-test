@@ -43,18 +43,19 @@ module Polysemy.Test (
   -- * Utilities
   UnitTest,
   unitTest,
+  unitTestTimes,
   TestError(TestError),
 ) where
 
 import qualified Data.Text as Text
-import Hedgehog (TestT, property, test, withTests)
+import Hedgehog (TestLimit, TestT, property, test, withTests)
 import Path (File, Path, Rel)
 import Test.Tasty (TestName, TestTree)
 import Test.Tasty.Hedgehog (testProperty)
 
 import Polysemy.Test.Data.Hedgehog (Hedgehog, liftH)
 import Polysemy.Test.Data.Test (Test, fixture, fixturePath, tempDir, tempFile, tempFileContent, testDir)
-import Polysemy.Test.Data.TestError (TestError(TestError))
+import Polysemy.Test.Data.TestError (TestError (TestError))
 import Polysemy.Test.Hedgehog (
   assert,
   assertClose,
@@ -91,13 +92,23 @@ import Polysemy.Test.Run (
 type UnitTest = TestT IO ()
 
 -- |Convert a @'TestT' IO ()@ to a 'TestTree' ready for use with Tasty's machinery.
--- This is for non-property tests.
+-- This is for non-property tests that are supposed to be executed @n@ times.
+unitTestTimes ::
+  TestLimit ->
+  TestName ->
+  UnitTest ->
+  TestTree
+unitTestTimes n desc =
+  testProperty desc . withTests n . property . test
+
+-- |Convert a @'TestT' IO ()@ to a 'TestTree' ready for use with Tasty's machinery.
+-- This is for non-property tests that are supposed to be executed once.
 unitTest ::
   TestName ->
   UnitTest ->
   TestTree
-unitTest desc =
-  testProperty desc . withTests 1 . property . test
+unitTest =
+  unitTestTimes 1
 
 -- |Read the contents of a file relative to the fixture directory as a list of lines.
 fixtureLines ::

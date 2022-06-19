@@ -1,3 +1,7 @@
+# Unreleased
+
+* Add `unitTestTimes`, converting `UnitTest` to `TestTree` with a specified number of test runs.
+
 # 0.6.0.0
 
 * Expose the `Error Failure` effect in the hedgehog interpret stack to allow throwing `Failure` manually.
