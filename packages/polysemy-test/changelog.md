@@ -1,6 +1,9 @@
 # Unreleased
 
+# 0.7.0.0
+
 * Add `unitTestTimes`, converting `UnitTest` to `TestTree` with a specified number of test runs.
+* Support GHC 9.4.
 
 # 0.6.0.0
 
