@@ -1,6 +1,6 @@
 cabal-version: 2.2
 
--- This file has been generated from package.yaml by hpack version 0.34.6.
+-- This file has been generated from package.yaml by hpack version 0.35.0.
 --
 -- see: https://github.com/sol/hpack
 
@@ -59,6 +59,7 @@ library
       DisambiguateRecordFields
       DoAndIfThenElse
       DuplicateRecordFields
+      EmptyCase
       EmptyDataDecls
       ExistentialQuantification
       FlexibleContexts
@@ -73,8 +74,9 @@ library
       MultiParamTypeClasses
       MultiWayIf
       NamedFieldPuns
-      OverloadedStrings
+      OverloadedLabels
       OverloadedLists
+      OverloadedStrings
       PackageImports
       PartialTypeSignatures
       PatternGuards
@@ -102,7 +104,7 @@ library
   build-depends:
       base >=4.12 && <5
     , hedgehog >=1.0.2
-    , incipit-core >=0.3
+    , incipit-core >=0.4
     , path >=0.7
     , path-io >=0.2
     , polysemy >=1.3
@@ -144,6 +146,7 @@ test-suite polysemy-test-unit
       DisambiguateRecordFields
       DoAndIfThenElse
       DuplicateRecordFields
+      EmptyCase
       EmptyDataDecls
       ExistentialQuantification
       FlexibleContexts
@@ -158,8 +161,9 @@ test-suite polysemy-test-unit
       MultiParamTypeClasses
       MultiWayIf
       NamedFieldPuns
-      OverloadedStrings
+      OverloadedLabels
       OverloadedLists
+      OverloadedStrings
       PackageImports
       PartialTypeSignatures
       PatternGuards
@@ -187,7 +191,7 @@ test-suite polysemy-test-unit
   build-depends:
       base >=4.12 && <5
     , hedgehog >=1.0.2
-    , incipit-core >=0.3
+    , incipit-core >=0.4
     , path >=0.7
     , polysemy >=1.3
     , polysemy-test

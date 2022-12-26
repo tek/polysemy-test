@@ -5,7 +5,6 @@ module Polysemy.Test.Hedgehog where
 
 import Control.Monad.Trans.Except (runExceptT)
 import qualified Control.Monad.Trans.Writer.Lazy as MTL
-import GHC.Stack (withFrozenCallStack)
 import qualified Hedgehog as Native
 import Hedgehog.Internal.Property (Failure, Journal, TestT (TestT), failWith)
 

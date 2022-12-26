@@ -1,10 +1,8 @@
-{-# options_ghc -Wno-unused-imports #-}
-
 module Polysemy.Test.Test.FilesTest where
 
 import qualified Data.Text as Text
 import qualified Data.Text.IO as Text
-import Path (File, Rel, relfile, toFilePath)
+import Path (relfile, toFilePath)
 
 import Polysemy.Test (UnitTest, fixtureLines, runTestAuto, runTestInSubdir, tempFileLines, (/==), (===))
 import qualified Polysemy.Test.Data.Test as Test
