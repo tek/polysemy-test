@@ -44,7 +44,8 @@ module Polysemy.Test (
   UnitTest,
   unitTest,
   unitTestTimes,
-  TestError(TestError),
+  TestError (TestError),
+  testError,
 ) where
 
 import qualified Data.Text as Text
@@ -55,7 +56,7 @@ import Test.Tasty.Hedgehog (testProperty)
 
 import Polysemy.Test.Data.Hedgehog (Hedgehog, liftH)
 import Polysemy.Test.Data.Test (Test, fixture, fixturePath, tempDir, tempFile, tempFileContent, testDir)
-import Polysemy.Test.Data.TestError (TestError (TestError))
+import Polysemy.Test.Data.TestError (TestError (TestError), testError)
 import Polysemy.Test.Hedgehog (
   assert,
   assertClose,
