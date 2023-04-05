@@ -220,7 +220,7 @@ assertLeft e =
 
 data ValueIsNothing =
   ValueIsNothing
-  deriving Show
+  deriving stock Show
 
 -- |Like 'evalEither', but for 'Maybe'.
 evalMaybe ::

@@ -204,21 +204,11 @@ callingTestDir = do
 -- |Wrapper for 'semToTestT' that uses the call stack to determine the base dir of the test run.
 -- Note that if you wrap this function, you'll have to use the 'HasCallStack' constraint to supply the implicit
 -- 'GHC.Stack.Types.CallStack'.
-runTestAutoWith ::
-  HasCallStack =>
-  Members [Resource, Embed IO] r =>
-  (∀ x . Sem r x -> IO x) ->
-  Sem (Test : Fail : Error TestError : Hedgehog IO : Error Failure : r) a ->
-  TestT IO a
-runTestAutoWith runSem sem =
-  semToTestT runSem do
-    base <- callingTestDir
-    interpretTest base sem
-
--- |Version of 'runTestAutoWith' specialized to @'Final' IO@
 runTestAuto ::
   HasCallStack =>
   Sem [Test, Fail, Error TestError, Hedgehog IO, Error Failure, Embed IO, Resource, Final IO] a ->
   TestT IO a
-runTestAuto =
-  runTestAutoWith (runFinal . resourceToIOFinal . embedToFinal)
+runTestAuto sem =
+  semToTestT (runFinal . resourceToIOFinal . embedToFinal) do
+    base <- callingTestDir
+    interpretTest base sem

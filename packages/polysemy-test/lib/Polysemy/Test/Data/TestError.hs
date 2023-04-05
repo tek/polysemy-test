@@ -1,12 +1,12 @@
 {-# options_haddock prune #-}
 
--- |TestError Newtype, Internal
+-- |TestError data type, Internal
 module Polysemy.Test.Data.TestError (
   TestError (TestError, UnsafeTestError),
   testError,
 ) where
 
--- | An error that occured in the test machinery.
+-- | An error that occurred in the test machinery.
 --
 -- The pattern synonym is used for construction to ensure that the call site's stack is stored.
 -- There is no 'IsString' instance because it can't propagate the call stack.

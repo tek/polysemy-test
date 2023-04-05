@@ -33,7 +33,6 @@ module Polysemy.Test (
   assertClose,
   interpretHedgehog,
   -- * Running 'Hedgehog' and 'Test' as 'TestT'
-  runTestAutoWith,
   runTestAuto,
   runTest,
   runTestInSubdir,
@@ -82,7 +81,6 @@ import Polysemy.Test.Run (
   interpretTestKeepTemp,
   runTest,
   runTestAuto,
-  runTestAutoWith,
   runTestInSubdir,
   semToTestT,
   semToTestTFinal,
