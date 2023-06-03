@@ -26,9 +26,10 @@ pattern TestError err <- UnsafeTestError err where
 
 -- | Throw a 'TestError' with the call site's stack.
 testError ::
+  ∀ a r .
   HasCallStack =>
   Member (Error TestError) r =>
   Text ->
-  Sem r TestError
+  Sem r a
 testError msg =
   withFrozenCallStack $ throw (TestError msg)
