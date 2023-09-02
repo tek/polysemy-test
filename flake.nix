@@ -40,12 +40,12 @@
       library = {
         enable = true;
         dependencies = [
-          "hedgehog >= 1.0.2"
-          "path >= 0.7"
-          "path-io >= 0.2"
-          "polysemy >= 1.3"
-          "tasty >= 1.1"
-          "tasty-hedgehog >= 1.0.0.2"
+          "hedgehog >= 1.0.2 && < 1.3"
+          "path >= 0.7 && < 0.10"
+          "path-io >= 1.7 && < 1.9"
+          "polysemy >= 1.3 && < 1.10"
+          "tasty >= 1.1 && < 1.5"
+          "tasty-hedgehog >= 1.1 && < 1.5"
           "transformers"
         ];
       };
@@ -53,10 +53,10 @@
       test = {
         enable = true;
         dependencies = [
-          "hedgehog >= 1.0.2"
-          "path >= 0.7"
-          "polysemy >= 1.3"
-          "tasty >= 1.1"
+          "hedgehog >= 1.0.2 && < 1.3"
+          "path >= 0.7 && < 0.10"
+          "polysemy >= 1.3 && < 1.10"
+          "tasty >= 1.1 && < 1.5"
         ];
       };
 
