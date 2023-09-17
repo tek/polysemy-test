@@ -33,6 +33,7 @@
           maintainer = "hackage@tryp.io";
           category = "Test";
           github = "tek/polysemy-test";
+          data-files = ["test/fixtures/**/*"];
           extra-source-files = ["readme.md" "changelog.md"];
         };
       };
