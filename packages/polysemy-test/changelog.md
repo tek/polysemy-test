@@ -1,5 +1,3 @@
-# Unreleased
-
 # 0.7.0.0
 
 * Add `unitTestTimes`, converting `UnitTest` to `TestTree` with a specified number of test runs.

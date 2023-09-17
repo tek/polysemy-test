@@ -9,7 +9,7 @@
     gen-overrides.enable = true;
 
     envs.ghc96.overrides = {hackage, jailbreak, ...}: {
-      polysemy = hackage "1.9.1.1" "0hh99vxhf1cyfpzyj6j9s5l2yz7gdp1m10bk98fh2mjqxm207s4k";
+      polysemy = hackage "1.9.1.2" "01vkiqxcjvvihgg8dvws76sfg0d98z8xyvpnj3g3nz02i078xf8j";
       type-errors = jailbreak;
     };
 
