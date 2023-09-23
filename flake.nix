@@ -8,8 +8,12 @@
     hackage.versionFile = "ops/version.nix";
     gen-overrides.enable = true;
 
-    envs.ghc96.overrides = {hackage, jailbreak, ...}: {
+    overrides = {hackage, ...}: {
       polysemy = hackage "1.9.1.2" "01vkiqxcjvvihgg8dvws76sfg0d98z8xyvpnj3g3nz02i078xf8j";
+      polysemy-plugin = hackage "0.4.5.1" "0afmx1vdgmvggk4sb4av91qnm8b3hr2kb4adcj9fhzq2w50393bc";
+    };
+
+    envs.ghc96.overrides = {hackage, jailbreak, ...}: {
       type-errors = jailbreak;
     };
 
@@ -44,7 +48,7 @@
           "hedgehog >= 1.0.2 && < 1.3"
           "path >= 0.7 && < 0.10"
           "path-io >= 1.7 && < 1.9"
-          "polysemy >= 1.3 && < 1.10"
+          "polysemy >= 1.9 && < 1.10"
           "tasty >= 1.1 && < 1.5"
           "tasty-hedgehog >= 1.1 && < 1.5"
           "transformers"
@@ -56,7 +60,7 @@
         dependencies = [
           "hedgehog >= 1.0.2 && < 1.3"
           "path >= 0.7 && < 0.10"
-          "polysemy >= 1.3 && < 1.10"
+          "polysemy >= 1.9 && < 1.10"
           "tasty >= 1.1 && < 1.5"
         ];
       };
