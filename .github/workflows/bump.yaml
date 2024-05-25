@@ -1,5 +1,6 @@
 name: bump
 on:
+  workflow_dispatch:
   schedule:
   - cron: '45 6 * * 6'
 permissions:
