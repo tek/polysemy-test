@@ -68,8 +68,10 @@
     lower = {
       hedgehog = "1.3";
       incipit-core = "0.6.0.0";
-      path = "0.9.0";
+      path = "0.9.1";
       path-io = "1.8.0";
+      polysemy = "1.9.1.3";
+      tasty = "1.4.0.3";
       tasty-hedgehog = "1.4.0.0";
       transformers = "0.5.6.2";
     };
