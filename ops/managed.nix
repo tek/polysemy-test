@@ -46,7 +46,7 @@
       incipit-core = "0.6.0.0";
       path = "0.9.5";
       path-io = "1.8.2";
-      polysemy = "1.9.1.3";
+      polysemy = "1.9.2.0";
       tasty = "1.4.3";
       tasty-hedgehog = "1.4.0.2";
       transformers = "0.6.1.0";
@@ -78,6 +78,10 @@
   };
   overrides = {
     latest = {
+      cabal-doctest = {
+        version = "1.0.9";
+        hash = "0irxfxy1qw7sif4408xdhqycddb4hs3hcf6xfxm65glsnmnmwl2i";
+      };
       incipit-base = {
         version = "0.6.0.0";
         hash = "1hck35yfy0dcgimgnd90w02zvv7x7k456bljrbx2mwxalnhav9gf";
@@ -89,6 +93,10 @@
       path-io = {
         version = "1.8.2";
         hash = "063ma7gzqr5c6s8a1yv72jgll3xdajvgclbc8w0ddmqgcrb62x2k";
+      };
+      polysemy = {
+        version = "1.9.2.0";
+        hash = "00dq1ffsd9bld5zag4l2qssbmm4yb234cirsn5f19fmx43cdgngl";
       };
     };
     lower = {
