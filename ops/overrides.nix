@@ -1,6 +1,48 @@
 {
 dev = {
 };
+ghc910 = {
+  incipit-base = {
+  meta = {
+    sha256 = "0iyyvxpyyybn5ygr875pav6g5hbs00wa9jbr7qslszqpkfpy5x33";
+    ver = "0.6.1.0";
+  };
+  drv = { mkDerivation, base, bytestring, containers, data-default, lib
+, stm, text
+}:
+mkDerivation {
+  pname = "incipit-base";
+  version = "0.6.1.0";
+  src = /nix/store/2k1isywgqm3pcbzdhwyp97n9250g044k-source;
+  libraryHaskellDepends = [
+    base bytestring containers data-default stm text
+  ];
+  homepage = "https://github.com/tek/incipit-core#readme";
+  description = "A Prelude for Polysemy – Base Reexports";
+  license = "BSD-2-Clause-Patent";
+}
+;
+}
+;
+  incipit-core = {
+  meta = {
+    sha256 = "144c239nxl8zi2ik3ycic3901gxn8rccij3g609n2zgnn3b6zilj";
+    ver = "0.6.1.0";
+  };
+  drv = { mkDerivation, base, incipit-base, lib, polysemy }:
+mkDerivation {
+  pname = "incipit-core";
+  version = "0.6.1.0";
+  src = /nix/store/7bfdjb94bzganyaybhhjmxjcwypnsasp-source;
+  libraryHaskellDepends = [ base incipit-base polysemy ];
+  homepage = "https://github.com/tek/incipit-core#readme";
+  description = "A Prelude for Polysemy";
+  license = "BSD-2-Clause-Patent";
+}
+;
+}
+;
+};
 ghc92 = {
 };
 ghc94 = {
@@ -8,6 +50,8 @@ ghc94 = {
 ghc96 = {
 };
 ghc98 = {
+};
+hix-build-tools = {
 };
 hls = {
 };
@@ -30,18 +74,51 @@ mkDerivation {
 ;
 }
 ;
+  hedgehog = {
+  meta = {
+    sha256 = "1hz8xrg5p6vplvcj8c7pgidqnwqjmqahs9dla50nqpbcbdh932ll";
+    ver = "1.5";
+  };
+  drv = { mkDerivation, ansi-terminal, async, barbies, base, bytestring
+, concurrent-output, containers, deepseq, directory, erf
+, exceptions, lib, lifted-async, mmorph, monad-control, mtl
+, pretty-show, primitive, random, resourcet, safe-exceptions, stm
+, template-haskell, text, time, transformers, transformers-base
+, wl-pprint-annotated
+}:
+mkDerivation {
+  pname = "hedgehog";
+  version = "1.5";
+  src = /nix/store/asphc2qzd1cykd892r5fnhflbd8cwana-source;
+  libraryHaskellDepends = [
+    ansi-terminal async barbies base bytestring concurrent-output
+    containers deepseq directory erf exceptions lifted-async mmorph
+    monad-control mtl pretty-show primitive random resourcet
+    safe-exceptions stm template-haskell text time transformers
+    transformers-base wl-pprint-annotated
+  ];
+  testHaskellDepends = [
+    base containers mmorph mtl pretty-show text transformers
+  ];
+  homepage = "https://hedgehog.qa";
+  description = "Release with confidence";
+  license = lib.licenses.bsd3;
+}
+;
+}
+;
   incipit-base = {
   meta = {
-    sha256 = "1hck35yfy0dcgimgnd90w02zvv7x7k456bljrbx2mwxalnhav9gf";
-    ver = "0.6.0.0";
+    sha256 = "0iyyvxpyyybn5ygr875pav6g5hbs00wa9jbr7qslszqpkfpy5x33";
+    ver = "0.6.1.0";
   };
   drv = { mkDerivation, base, bytestring, containers, data-default, lib
 , stm, text
 }:
 mkDerivation {
   pname = "incipit-base";
-  version = "0.6.0.0";
-  src = /nix/store/bcs2wgdcfmnm1msbd7n8qd27ikwv3rcm-source;
+  version = "0.6.1.0";
+  src = /nix/store/2k1isywgqm3pcbzdhwyp97n9250g044k-source;
   libraryHaskellDepends = [
     base bytestring containers data-default stm text
   ];
@@ -54,18 +131,47 @@ mkDerivation {
 ;
   incipit-core = {
   meta = {
-    sha256 = "0gmngb4pinkpbsnclrgs6x016ffnls1g4xzz0hdzg2rpyl63d5ph";
-    ver = "0.6.0.0";
+    sha256 = "144c239nxl8zi2ik3ycic3901gxn8rccij3g609n2zgnn3b6zilj";
+    ver = "0.6.1.0";
   };
   drv = { mkDerivation, base, incipit-base, lib, polysemy }:
 mkDerivation {
   pname = "incipit-core";
-  version = "0.6.0.0";
-  src = /nix/store/r29nfjc427wwr536jccy99r885kbyw02-source;
+  version = "0.6.1.0";
+  src = /nix/store/7bfdjb94bzganyaybhhjmxjcwypnsasp-source;
   libraryHaskellDepends = [ base incipit-base polysemy ];
   homepage = "https://github.com/tek/incipit-core#readme";
   description = "A Prelude for Polysemy";
   license = "BSD-2-Clause-Patent";
+}
+;
+}
+;
+  path = {
+  meta = {
+    sha256 = "16hgrkvd27c9vp5447d1dv3b3fi0fv0jfig10h2j37mzk4850wg8";
+    ver = "0.9.6";
+  };
+  drv = { mkDerivation, aeson, base, bytestring, deepseq, exceptions
+, filepath, genvalidity, genvalidity-hspec, hashable, hspec, lib
+, QuickCheck, template-haskell, text, validity-bytestring
+}:
+mkDerivation {
+  pname = "path";
+  version = "0.9.6";
+  src = /nix/store/17x0d7bdy3wg6nq9zw20ndi417gy13ck-source;
+  libraryHaskellDepends = [
+    aeson base deepseq exceptions filepath hashable template-haskell
+    text
+  ];
+  testHaskellDepends = [
+    aeson base bytestring exceptions filepath genvalidity
+    genvalidity-hspec hspec QuickCheck template-haskell
+    validity-bytestring
+  ];
+  doHaddock = false;
+  description = "Support for well-typed paths";
+  license = lib.licenses.bsd3;
 }
 ;
 }
@@ -95,33 +201,47 @@ mkDerivation {
 ;
 }
 ;
-  polysemy = {
+  tasty = {
   meta = {
-    sha256 = "00dq1ffsd9bld5zag4l2qssbmm4yb234cirsn5f19fmx43cdgngl";
-    ver = "1.9.2.0";
+    sha256 = "1xjlmgsww34asjl9rcwbziw5l4qqbvi5l4b7qvzf4dc7hqkpq1rs";
+    ver = "1.5.3";
   };
-  drv = { mkDerivation, async, base, Cabal, cabal-doctest, containers
-, doctest, first-class-families, hspec, hspec-discover
-, inspection-testing, lib, mtl, stm, syb, template-haskell
-, th-abstraction, transformers, type-errors, unagi-chan
+  drv = { mkDerivation, ansi-terminal, base, containers, lib
+, optparse-applicative, stm, tagged, transformers, unix
 }:
 mkDerivation {
-  pname = "polysemy";
-  version = "1.9.2.0";
-  src = /nix/store/rrd35xyn2gzkvqid5k43dsqw5z0yb21d-source;
-  setupHaskellDepends = [ base Cabal cabal-doctest ];
+  pname = "tasty";
+  version = "1.5.3";
+  src = /nix/store/9028fgac7afc6vw6is37lvq4p8gqpa7m-source;
   libraryHaskellDepends = [
-    async base containers first-class-families mtl stm syb
-    template-haskell th-abstraction transformers type-errors unagi-chan
+    ansi-terminal base containers optparse-applicative stm tagged
+    transformers unix
   ];
+  homepage = "https://github.com/UnkindPartition/tasty";
+  description = "Modern and extensible testing framework";
+  license = lib.licenses.mit;
+}
+;
+}
+;
+  tasty-hedgehog = {
+  meta = {
+    sha256 = "04kg2qdnsqzzmj3xggy2jcgidlp21lsjkz4sfnbq7b1yhrv2vbbc";
+    ver = "1.4.0.2";
+  };
+  drv = { mkDerivation, base, hedgehog, lib, tagged, tasty
+, tasty-expected-failure
+}:
+mkDerivation {
+  pname = "tasty-hedgehog";
+  version = "1.4.0.2";
+  src = /nix/store/b9mxq4fh65sif22q9a4g041jvp847cyc-source;
+  libraryHaskellDepends = [ base hedgehog tagged tasty ];
   testHaskellDepends = [
-    async base containers doctest first-class-families hspec
-    hspec-discover inspection-testing mtl stm syb template-haskell
-    th-abstraction transformers type-errors unagi-chan
+    base hedgehog tasty tasty-expected-failure
   ];
-  testToolDepends = [ hspec-discover ];
-  homepage = "https://github.com/polysemy-research/polysemy#readme";
-  description = "Higher-order, low-boilerplate free monads";
+  homepage = "https://github.com/qfpl/tasty-hedgehog";
+  description = "Integration for tasty and hedgehog";
   license = lib.licenses.bsd3;
 }
 ;

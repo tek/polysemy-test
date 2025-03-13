@@ -4,14 +4,18 @@
   inputs.hix.url = "git+https://git.tryp.io/tek/hix";
 
   outputs = {hix, ...}: hix.lib.pro {
-    ghcVersions = ["ghc92" "ghc94" "ghc96" "ghc98"];
+    ghcVersions = ["ghc92" "ghc94" "ghc96" "ghc98" "ghc910"];
     compat.versions = ["ghc94" "ghc96"];
     hackage.versionFile = "ops/version.nix";
     gen-overrides.enable = true;
     managed = {
       enable = true;
       lower.enable = true;
-      latest.compiler = "ghc98";
+      latest.compiler = "ghc910";
+      latest.envs.solverOverrides = {jailbreak, ...}: {
+        incipit-base = jailbreak;
+        incipit-core = jailbreak;
+      };
     };
 
     packages.polysemy-test = {
@@ -60,5 +64,11 @@
       };
 
     };
+
+    envs.ghc910.overrides = {hackage, jailbreak, ...}: {
+      incipit-base = hackage "0.6.1.0" "0iyyvxpyyybn5ygr875pav6g5hbs00wa9jbr7qslszqpkfpy5x33";
+      incipit-core = hackage "0.6.1.0" "144c239nxl8zi2ik3ycic3901gxn8rccij3g609n2zgnn3b6zilj";
+    };
+
   };
 }

@@ -3,11 +3,11 @@
     polysemy-test = {
       base = {
         lower = "4.16.4.0";
-        upper = "4.20";
+        upper = "4.21";
       };
       hedgehog = {
         lower = "1.1.1";
-        upper = "1.5";
+        upper = "1.6";
       };
       incipit-core = {
         lower = "0.3.0.0";
@@ -27,7 +27,7 @@
       };
       tasty = {
         lower = "1.4.3";
-        upper = "1.5";
+        upper = "1.6";
       };
       tasty-hedgehog = {
         lower = "1.1.0.0";
@@ -41,15 +41,15 @@
   };
   versions = {
     latest = {
-      base = "4.19.1.0";
-      hedgehog = "1.4";
-      incipit-core = "0.6.0.0";
-      path = "0.9.5";
+      base = "4.20.0.0";
+      hedgehog = "1.5";
+      incipit-core = "0.6.1.0";
+      path = "0.9.6";
       path-io = "1.8.2";
       polysemy = "1.9.2.0";
-      tasty = "1.4.3";
+      tasty = "1.5.3";
       tasty-hedgehog = "1.4.0.2";
-      transformers = "0.6.1.0";
+      transformers = "0.6.1.1";
     };
     lower = {
       base = "4.16.4.0";
@@ -82,21 +82,33 @@
         version = "1.0.9";
         hash = "0irxfxy1qw7sif4408xdhqycddb4hs3hcf6xfxm65glsnmnmwl2i";
       };
+      hedgehog = {
+        version = "1.5";
+        hash = "1hz8xrg5p6vplvcj8c7pgidqnwqjmqahs9dla50nqpbcbdh932ll";
+      };
       incipit-base = {
-        version = "0.6.0.0";
-        hash = "1hck35yfy0dcgimgnd90w02zvv7x7k456bljrbx2mwxalnhav9gf";
+        version = "0.6.1.0";
+        hash = "0iyyvxpyyybn5ygr875pav6g5hbs00wa9jbr7qslszqpkfpy5x33";
       };
       incipit-core = {
-        version = "0.6.0.0";
-        hash = "0gmngb4pinkpbsnclrgs6x016ffnls1g4xzz0hdzg2rpyl63d5ph";
+        version = "0.6.1.0";
+        hash = "144c239nxl8zi2ik3ycic3901gxn8rccij3g609n2zgnn3b6zilj";
+      };
+      path = {
+        version = "0.9.6";
+        hash = "16hgrkvd27c9vp5447d1dv3b3fi0fv0jfig10h2j37mzk4850wg8";
       };
       path-io = {
         version = "1.8.2";
         hash = "063ma7gzqr5c6s8a1yv72jgll3xdajvgclbc8w0ddmqgcrb62x2k";
       };
-      polysemy = {
-        version = "1.9.2.0";
-        hash = "00dq1ffsd9bld5zag4l2qssbmm4yb234cirsn5f19fmx43cdgngl";
+      tasty = {
+        version = "1.5.3";
+        hash = "1xjlmgsww34asjl9rcwbziw5l4qqbvi5l4b7qvzf4dc7hqkpq1rs";
+      };
+      tasty-hedgehog = {
+        version = "1.4.0.2";
+        hash = "04kg2qdnsqzzmj3xggy2jcgidlp21lsjkz4sfnbq7b1yhrv2vbbc";
       };
     };
     lower = {
