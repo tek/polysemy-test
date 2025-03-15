@@ -43,7 +43,7 @@
     latest = {
       base = "4.20.0.0";
       hedgehog = "1.5";
-      incipit-core = "0.6.1.0";
+      incipit-core = "0.6.1.1";
       path = "0.9.6";
       path-io = "1.8.2";
       polysemy = "1.9.2.0";
@@ -87,12 +87,12 @@
         hash = "1hz8xrg5p6vplvcj8c7pgidqnwqjmqahs9dla50nqpbcbdh932ll";
       };
       incipit-base = {
-        version = "0.6.1.0";
-        hash = "0iyyvxpyyybn5ygr875pav6g5hbs00wa9jbr7qslszqpkfpy5x33";
+        version = "0.6.1.1";
+        hash = "08ybv7j94yyznrxnrh744bi3i1a00sz8bf5ddfs9vfgfhhkrg8fn";
       };
       incipit-core = {
-        version = "0.6.1.0";
-        hash = "144c239nxl8zi2ik3ycic3901gxn8rccij3g609n2zgnn3b6zilj";
+        version = "0.6.1.1";
+        hash = "0qpw07f8ip6h7srqkbzfxyz1z36n75irhc6465s9xvrii1840b2k";
       };
       path = {
         version = "0.9.6";

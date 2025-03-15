@@ -5,18 +5,8 @@
 
   outputs = {hix, ...}: hix.lib.pro {
     ghcVersions = ["ghc92" "ghc94" "ghc96" "ghc98" "ghc910"];
-    compat.versions = ["ghc94" "ghc96"];
     hackage.versionFile = "ops/version.nix";
     gen-overrides.enable = true;
-    managed = {
-      enable = true;
-      lower.enable = true;
-      latest.compiler = "ghc910";
-      latest.envs.solverOverrides = {jailbreak, ...}: {
-        incipit-base = jailbreak;
-        incipit-core = jailbreak;
-      };
-    };
 
     packages.polysemy-test = {
       src = ./packages/polysemy-test;
@@ -63,6 +53,16 @@
         ];
       };
 
+    };
+
+    managed = {
+      enable = true;
+      lower.enable = true;
+      latest.compiler = "ghc910";
+      latest.envs.solverOverrides = {jailbreak, ...}: {
+        incipit-base = jailbreak;
+        incipit-core = jailbreak;
+      };
     };
 
     envs.ghc910.overrides = {hackage, jailbreak, ...}: {
