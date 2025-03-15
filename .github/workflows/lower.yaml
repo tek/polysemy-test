@@ -8,6 +8,6 @@ jobs:
   lower-pr:
     uses: tek/hix/.github/workflows/bounds.yaml@main
     with:
-      command: lower
+      command: lower.auto
     secrets:
       cachix_key: ${{ secrets.CACHIX_SIGNING_KEY }}
