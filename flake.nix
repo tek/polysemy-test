@@ -59,10 +59,6 @@
       enable = true;
       lower.enable = true;
       latest.compiler = "ghc910";
-      latest.envs.solverOverrides = {jailbreak, ...}: {
-        incipit-base = jailbreak;
-        incipit-core = jailbreak;
-      };
     };
 
     envs.ghc910.overrides = {hackage, jailbreak, ...}: {
