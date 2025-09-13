@@ -77,7 +77,7 @@ library
   ghc-options: -Wall -Widentities -Wincomplete-uni-patterns -Wmissing-deriving-strategies -Wredundant-constraints -Wunused-type-patterns -Wunused-packages
   build-depends:
       base >=4.16.4.0 && <4.21
-    , hedgehog >=1.1.1 && <1.6
+    , hedgehog >=1.1.1 && <1.7
     , incipit-core >=0.3.0.0 && <0.7
     , path >=0.9.1 && <0.10
     , path-io >=1.6.3 && <1.9
@@ -138,7 +138,7 @@ test-suite polysemy-test-test
   ghc-options: -threaded -rtsopts -with-rtsopts=-N -Wall -Widentities -Wincomplete-uni-patterns -Wmissing-deriving-strategies -Wredundant-constraints -Wunused-type-patterns -Wunused-packages
   build-depends:
       base >=4.16.4.0 && <4.21
-    , hedgehog >=1.1.1 && <1.6
+    , hedgehog >=1.1.1 && <1.7
     , incipit-core >=0.3.0.0 && <0.7
     , path >=0.9.1 && <0.10
     , polysemy >=1.6.0.0 && <1.10
