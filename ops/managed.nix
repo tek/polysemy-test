@@ -51,7 +51,7 @@
       path = "0.9.6";
       path-io = "1.8.2";
       polysemy = "1.9.2.0";
-      tasty = "1.5.3";
+      tasty = "1.5.4";
       tasty-hedgehog = "1.4.0.2";
       transformers = "0.6.1.1";
     };
@@ -181,7 +181,6 @@
         version = "0.1.2";
         hash = "05vpkasz70yjf09hsmbw7nap70sr8p5b7hrsdbmij8k8xqf3qg8r";
         repo = "hackage.haskell.org";
-        revision = true;
       };
       integer-logarithms = {
         version = "1.0.4";
@@ -244,8 +243,8 @@
         repo = "hackage.haskell.org";
       };
       tasty = {
-        version = "1.5.3";
-        hash = "1xjlmgsww34asjl9rcwbziw5l4qqbvi5l4b7qvzf4dc7hqkpq1rs";
+        version = "1.5.4";
+        hash = "0x6khif6n0rzfgkvrbiagg1sj0lwmjfr6qarjnjwmb9ywdk7598b";
         repo = "hackage.haskell.org";
       };
       tasty-hedgehog = {
@@ -271,6 +270,11 @@
       unix-compat = {
         version = "0.7.4";
         hash = "16g6vkqbmpdrvrx8gcl6zb5wk3qc7v0l9987xckd50lm4c74xrlr";
+        repo = "hackage.haskell.org";
+      };
+      unordered-containers = {
+        version = "0.2.21";
+        hash = "0na84q5vxxww3pmz72ihpx4j7dhk71z28r55i7j0pq7mj27jasb0";
         repo = "hackage.haskell.org";
       };
       witherable = {
