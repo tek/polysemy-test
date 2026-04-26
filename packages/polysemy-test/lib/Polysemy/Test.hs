@@ -34,18 +34,27 @@ module Polysemy.Test (
   interpretHedgehog,
   -- * Running 'Hedgehog' and 'Test' as 'TestT'
   runTestAutoWith,
+  runTestAutoWithSkippable,
   runTestAuto,
+  runTestAutoSkippable,
   runTest,
+  runTestSkippable,
   runTestInSubdir,
+  runTestInSubdirSkippable,
   unwrapLiftedTestT,
+  unwrapLiftedTestTSkippable,
   semToTestT,
+  semToTestTSkippable,
   semToTestTFinal,
+  semToTestTFinalSkippable,
   -- * Utilities
   UnitTest,
   unitTest,
   unitTestTimes,
-  TestError (TestError),
+  TestError (TestError, SkipTest),
   testError,
+  skipTest,
+  SkipTestDefaultValue (..),
 ) where
 
 import qualified Data.Text as Text
@@ -56,7 +65,7 @@ import Test.Tasty.Hedgehog (testProperty)
 
 import Polysemy.Test.Data.Hedgehog (Hedgehog, liftH)
 import Polysemy.Test.Data.Test (Test, fixture, fixturePath, tempDir, tempFile, tempFileContent, testDir)
-import Polysemy.Test.Data.TestError (TestError (TestError), testError)
+import Polysemy.Test.Data.TestError (SkipTestDefaultValue (..), TestError (TestError, SkipTest), skipTest, testError)
 import Polysemy.Test.Hedgehog (
   assert,
   assertClose,
@@ -82,11 +91,18 @@ import Polysemy.Test.Run (
   interpretTestKeepTemp,
   runTest,
   runTestAuto,
+  runTestAutoSkippable,
   runTestAutoWith,
+  runTestAutoWithSkippable,
   runTestInSubdir,
+  runTestInSubdirSkippable,
+  runTestSkippable,
   semToTestT,
   semToTestTFinal,
+  semToTestTFinalSkippable,
+  semToTestTSkippable,
   unwrapLiftedTestT,
+  unwrapLiftedTestTSkippable,
   )
 
 -- |Convenience type alias for tests.
@@ -132,8 +148,9 @@ tempFileLines =
 {- $intro
 @
 import Path (relfile)
-import Polysemy.Test
 import Test.Tasty (defaultMain)
+
+import Polysemy.Test
 
 test_fixture :: UnitTest
 test_fixture =
