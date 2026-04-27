@@ -5,7 +5,7 @@ cabal-version: 2.2
 -- see: https://github.com/sol/hpack
 
 name:           polysemy-test
-version:        0.10.0.1
+version:        0.11.0.0
 synopsis:       Polysemy effects for testing
 description:    See https://hackage.haskell.org/package/polysemy-test/docs/Polysemy-Test.html
 category:       Test
@@ -142,7 +142,7 @@ test-suite polysemy-test-test
     , incipit-core >=0.7.0.0 && <0.8
     , path >=0.9.1 && <0.10
     , polysemy >=1.9.1.0 && <1.10
-    , polysemy-test
+    , polysemy-test <0.12
     , tasty >=1.5.2 && <1.6
   mixins:
       base hiding (Prelude)

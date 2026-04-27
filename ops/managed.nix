@@ -27,7 +27,7 @@
       };
       polysemy-test = {
         lower = null;
-        upper = null;
+        upper = "0.12";
       };
       tasty = {
         lower = "1.5.2";
@@ -267,6 +267,10 @@
     };
     lower = {};
   };
-  packages = {};
+  packages = {
+    polysemy-test = {
+      version = "0.11.0.0";
+    };
+  };
   resolving = false;
 }
