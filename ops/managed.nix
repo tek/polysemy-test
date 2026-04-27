@@ -209,7 +209,7 @@
   };
   packages = {
     polysemy-test = {
-      version = "0.11.0.0";
+      version = "0.11.0.1";
     };
   };
   resolving = false;
