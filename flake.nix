@@ -60,11 +60,10 @@
       enable = true;
       lower.enable = true;
       latest.compiler = "ghc912";
+      lower.compiler = "ghc94";
     };
 
-    hackage.repos."hackage.haskell.org" = {
-      user = "tek";
-    };
+    hackage.repos."hackage.haskell.org".user = "tek";
 
     internal.hixCli.dev = true;
 
