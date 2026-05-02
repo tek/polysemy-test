@@ -36,15 +36,15 @@ mkDerivation {
 ;
     incipit-core = {
   meta = {
-    sha256 = "03fbkvaabp5qf7yf4rb6fhcnxii68b60dz6667hawys6hh9zdvfs";
+    sha256 = "1bnaqzdc1vs9vcdlbaljdwv586syam3ahppqq9lwmg2jcvqp2zqr";
     url = "https://hackage.haskell.org";
-    ver = "0.7.0.0";
+    ver = "0.7.0.1";
   };
   drv = { mkDerivation, base, incipit-base, lib, polysemy }:
 mkDerivation {
   pname = "incipit-core";
-  version = "0.7.0.0";
-  src = /nix/store/p2hnhhsbr5sbxdpaaxrnibikwz23kyq1-source;
+  version = "0.7.0.1";
+  src = /nix/store/fphdspn1hwi7ygddkdy3m6qdvc2vlkx6-source;
   libraryHaskellDepends = [ base incipit-base polysemy ];
   homepage = "https://github.com/tek/incipit-core#readme";
   description = "A Prelude for Polysemy";

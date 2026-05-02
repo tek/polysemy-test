@@ -47,7 +47,7 @@
     latest = {
       base = "4.21.0.0";
       hedgehog = "1.7";
-      incipit-core = "0.7.0.0";
+      incipit-core = "0.7.0.1";
       path = "0.9.6";
       path-io = "1.8.2";
       polysemy = "1.9.2.0";
@@ -88,8 +88,8 @@
         repo = "hackage.haskell.org";
       };
       incipit-core = {
-        version = "0.7.0.0";
-        hash = "03fbkvaabp5qf7yf4rb6fhcnxii68b60dz6667hawys6hh9zdvfs";
+        version = "0.7.0.1";
+        hash = "1bnaqzdc1vs9vcdlbaljdwv586syam3ahppqq9lwmg2jcvqp2zqr";
         repo = "hackage.haskell.org";
       };
       tasty = {
