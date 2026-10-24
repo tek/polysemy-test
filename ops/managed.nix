@@ -51,7 +51,7 @@
       path = "0.9.6";
       path-io = "1.8.2";
       polysemy = "1.9.2.0";
-      tasty = "1.5.4";
+      tasty = "1.5.5";
       tasty-hedgehog = "1.4.0.2";
       transformers = "0.6.1.2";
     };
@@ -93,8 +93,8 @@
         repo = "hackage.haskell.org";
       };
       tasty = {
-        version = "1.5.4";
-        hash = "0x6khif6n0rzfgkvrbiagg1sj0lwmjfr6qarjnjwmb9ywdk7598b";
+        version = "1.5.5";
+        hash = "1h1myhp1g5y6iwzx0m29w5s7vpay9cm3c83jr4g2c4mpjjyqixil";
         repo = "hackage.haskell.org";
       };
       tasty-hedgehog = {
